@@ -9,6 +9,34 @@ describe('User model', () => {
     return db.sync({force: true})
   })
 
+  describe('Basic Fields: name and email', () => {
+    describe('name', () => {
+      it('name is a string', async () => {
+        const hannah = await User.create({name: 'HANNAH'})
+        expect(hannah.name).to.equal(
+          'HANNAH',
+          'Was not able to create a user with name HANNAH'
+        )
+      })
+
+      it('name cannot be null', async () => {
+        // We shouldn't be able to create a user without a name.
+        await expect(
+          User.create({}),
+          "We shouldn't be able to create a user with no name"
+        ).to.be.rejected
+      })
+
+      it('name cannot be an empty string', async () => {
+        // We also shouldn't be able to create a user with an empty name.
+        await expect(
+          User.create({name: ''}),
+          "We shouldn't be able to create a user with an empty name"
+        ).to.be.rejected
+      })
+    })
+  }) // end describe('Basic Fields: name and email')
+
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
       let cody
