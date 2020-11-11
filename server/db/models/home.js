@@ -9,11 +9,17 @@ const Home = db.define('home', {
   },
   type: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate:{
+      isIn:[[ 'Old House', 'Eco-friendly', 'Haunted']]
+    }
   },
   price: {
   type: Sequelize.INTEGER,
-  allowNull: false
+  allowNull: false,
+  validate: {
+    min: 1
+  }
   },
   imageUrl: {
     type: Sequelize.TEXT,
