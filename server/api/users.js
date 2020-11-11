@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// I agree with this comment, safer to use findByPk since it is newer
 router.get('/:id', async (req, res, next) => {
   try {
     // may need to use findByPk()
@@ -40,6 +41,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// what security can we add around this route to prevent anyone from being able to delete a user?
 router.delete('/:id', async (req, res, next) => {
   try {
     // what status codes do we want to use?
@@ -62,6 +64,7 @@ router.delete('/:id', async (req, res, next) => {
   */
 })
 
+// status code for something like this could be 200 -> OK
 router.put('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)

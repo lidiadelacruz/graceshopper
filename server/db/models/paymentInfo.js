@@ -30,6 +30,7 @@ const PaymentInfo = db.define('paymentInfo', {
       isCreditCard: true,
     }
   },
+  // How can we make the 'isAfter' check a little more dynamic so that we don't hardcode the date?
   cardExpirationDate: {
     //date documentation, link: https://sequelize.org/v5/. An alternative could be to use a string datatype.
     //DATEONLY gives us date w/o time.

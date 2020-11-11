@@ -1,4 +1,5 @@
 const sequelize = require('sequelize')
+// extra Sequelize import, we should remove one
 const Sequelize = require('sequelize')
 const db = require('../db')
 
@@ -7,6 +8,7 @@ const Home = db.define('home', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  // Could type be an ENUM? What are the possible values for it?
   type: {
     type: Sequelize.STRING,
     allowNull: false
@@ -26,6 +28,7 @@ const Home = db.define('home', {
       isIn:[[ 'Available', 'Sold', 'In-contract']]
     }
   },
+  // another validation here could be a minimum value (should never go below 0)
   inventory: {
     type: Sequelize.INTEGER,
     allowNull: false

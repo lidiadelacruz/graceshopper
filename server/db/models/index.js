@@ -7,6 +7,9 @@ const PaymentInfo = require('./paymentInfo')
 User.hasMany(Order)
 Order.belongsTo(User)
 
+// I like that you have a many-to-many relationship with Home and Order
+// Do we need to add any columns to Order_Home? What happens if we want to buy multiples of the same house?
+// Can we customize the Order_Home table and give it a quantity column?
 Order.belongsToMany(Home, {through: 'Order_Home'})
 Home.belongsToMany(Order, {through: 'Order_Home'})
 
