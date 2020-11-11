@@ -49,6 +49,7 @@ const User = db.define('user', {
       return () => this.getDataValue('salt')
     }
   },
+  // do we actually need this?
   googleId: {
     type: Sequelize.STRING
   }
