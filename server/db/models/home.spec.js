@@ -29,5 +29,21 @@ describe('Home model', () => {
 })
 
   describe('instanceMethods', () => {
-    describe('correctP')
+    describe('correctType', () => {
+      let house
+
+      beforeEach(async () => {
+      house = await Home.create({
+        type: 'Haunted',
+        inventory: 1
+      })
+
+      })
+      it('returns true if the inventory is correct', () => {
+        eexpect(house.inventory(1).to.be.equal(true))
+      })
+      it('returns false if the password is incorrect', () => {
+        expect(house.inventory(2).to.be.equal(false))
+      })
+    })
   })
