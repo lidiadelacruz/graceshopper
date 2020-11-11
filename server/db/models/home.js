@@ -8,12 +8,15 @@ const Home = db.define('home', {
   },
   type: {
     type: Sequelize.STRING,
-    allowNull: false
-    // do we want to add categories? Old House, Haunted, Eco-Friendly
+    validate:{
+      isIn:[[ 'Old House', 'Eco-friendly', 'Haunted']]
+    }
   },
   price: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+  type: Sequelize.INTEGER,
+  allowNull: false,
+  validate: {
+    min: 1
   },
   imageUrl: {
     type: Sequelize.TEXT,
