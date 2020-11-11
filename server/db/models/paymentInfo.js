@@ -35,6 +35,7 @@ const PaymentInfo = db.define('paymentInfo', {
     //date documentation, link: https://sequelize.org/v5/. An alternative could be to use a string datatype.
     //DATEONLY gives us date w/o time.
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       isAfter: this.CardExpiryValidation()
     }
@@ -43,7 +44,7 @@ const PaymentInfo = db.define('paymentInfo', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      // thinks isNumeric works with strings.
+      // think isNumeric works with strings.
       isNumeric: true,
       //isThreeDigits is a custom validator used to check if a user inputs a cvv of a correct length of 3 or 4 digits. Documentation: https://sequelize.org/master/manual/validations-and-constraints.html
       //alternative can be len: [3,4] or a variation of this.
