@@ -1,19 +1,19 @@
-const sequelize = require('sequelize')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Home = db.define('home', {
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    allowNull: false
   },
   type: {
     type: Sequelize.STRING,
     allowNull: false
+    // do we want to add categories? Old House, Haunted, Eco-Friendly
   },
   price: {
-  type: Sequelize.INTEGER,
-  allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   imageUrl: {
     type: Sequelize.TEXT,
@@ -22,14 +22,14 @@ const Home = db.define('home', {
   status: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate:{
-      isIn:[[ 'Available', 'Sold', 'In-contract']]
+    validate: {
+      isIn: [['Available', 'Sold', 'In-contract']]
     }
   },
   inventory: {
     type: Sequelize.INTEGER,
     allowNull: false
-  },
+  }
 })
 
-module.export = Home
+module.exports = Home

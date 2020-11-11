@@ -14,7 +14,7 @@ User.belongsToMany(PaymentInfo, {through: 'User_PaymentInfo'})
 PaymentInfo.belongsToMany(User, {through: 'User_PaymentInfo'})
 
 Order.hasOne(PaymentInfo)
-PaymentInfo.belongTo(Order)
+PaymentInfo.belongsTo(Order)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

@@ -10,10 +10,10 @@ describe('User model', () => {
   })
 
   describe('Basic Fields: name and email', () => {
-    describe('name', () => {
+    describe('firstName', () => {
       it('name is a string', async () => {
-        const hannah = await User.create({name: 'HANNAH'})
-        expect(hannah.name).to.equal(
+        const hannah = await User.create({firstName: 'HANNAH'})
+        expect(hannah.firstName).to.equal(
           'HANNAH',
           'Was not able to create a user with name HANNAH'
         )
@@ -30,7 +30,7 @@ describe('User model', () => {
       it('name cannot be an empty string', async () => {
         // We also shouldn't be able to create a user with an empty name.
         await expect(
-          User.create({name: ''}),
+          User.create({firstName: ''}),
           "We shouldn't be able to create a user with an empty name"
         ).to.be.rejected
       })
@@ -43,6 +43,7 @@ describe('User model', () => {
 
       beforeEach(async () => {
         cody = await User.create({
+          // add required fields
           email: 'cody@puppybook.com',
           password: 'bones'
         })

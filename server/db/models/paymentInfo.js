@@ -7,27 +7,28 @@ const PaymentInfo = db.define('paymentInfo', {
     allowNull: false,
     validate: {
       //cannot be an empty string
-      notEmpty: true,
+      notEmpty: true
     }
   },
   //made this field optional since not all folks have a middle name.
   middleInitial: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate:{
+    validate: {
       //cannot be an empty string
-      notEmpty: true,
+      notEmpty: true
     }
   },
   creditOrDebitCardNumber: {
+    // should this be .BIGINT ?
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       //isCreditCard validation checks for valid credit card numbers
-      isCreditCard: true,
+      isCreditCard: true
     }
   },
   cardExpirationDate: {
@@ -37,15 +38,15 @@ const PaymentInfo = db.define('paymentInfo', {
     validate: {
       //checks if input is a date
       isDate: true,
-      //today's date
-      isAfter: "2020-11-11",
+      //today's date -- there is a way to not hard code today's date!!
+      isAfter: '2020-11-11'
     }
-
   },
   cardCVV: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
+      // thinks isNumeric works with strings.
       isNumeric: true,
       //isThreeDigits is a custom validator used to check if a user inputs a cvv of a correct length of 3 or 4 digits. Documentation: https://sequelize.org/master/manual/validations-and-constraints.html
       //alternative can be len: [3,4] or a variation of this.
