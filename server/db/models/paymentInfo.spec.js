@@ -13,7 +13,7 @@ describe('PaymentInfo model', () => {
     describe('firstName', () => {
       //We should be able to create a firstname with a string containing text.
       it('firstName is a string', async () => {
-        const william = await PaymentInfo.create({firstName: 'William'})
+        const william = await PaymentInfo.create({firstName: 'William', lastName: 'Test', creditOrDebitCardNumber: "TestCard" })
         expect(william.firstName).to.equal(
           'William',
           'Was not able to create a user with name William'

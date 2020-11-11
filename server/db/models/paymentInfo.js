@@ -23,7 +23,7 @@ const PaymentInfo = db.define('paymentInfo', {
     }
   },
   creditOrDebitCardNumber: {
-    // should this be .BIGINT ?
+    //Yes, isCreditCard can be used with string. see: https://github.com/typestack/class-validator
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
@@ -34,12 +34,9 @@ const PaymentInfo = db.define('paymentInfo', {
   cardExpirationDate: {
     //date documentation, link: https://sequelize.org/v5/. An alternative could be to use a string datatype.
     //DATEONLY gives us date w/o time.
-    type: Sequelize.DATEONLY,
+    type: Sequelize.STRING,
     validate: {
-      //checks if input is a date
-      isDate: true,
-      //today's date -- there is a way to not hard code today's date!!
-      isAfter: '2020-11-11'
+      isAfter: this.CardExpiryValidation()
     }
   },
   cardCVV: {
@@ -67,5 +64,13 @@ const PaymentInfo = db.define('paymentInfo', {
     allowNull: false
   }
 })
+
+//helper function - assists field for Card Expiration
+
+PaymentInfo.CardExpiryValidation = function() {
+  let todaysDate = new Date()
+  return `${todaysDate.getMonth()}/${todaysDate.getFullYear()}`
+}
+
 
 module.exports = PaymentInfo
