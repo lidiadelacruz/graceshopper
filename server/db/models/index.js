@@ -1,7 +1,7 @@
 const User = require('./user')
 const Home = require('./home')
 const Order = require('./order')
-const Payment = require('./payment')
+const PaymentInfo = require('./paymentInfo')
 
 // ASSOCIATIONS
 User.hasMany(Order)
@@ -10,11 +10,11 @@ Order.belongsTo(User)
 Order.belongsToMany(Home, {through: 'Order_Home'})
 Home.belongsToMany(Order, {through: 'Order_Home'})
 
-User.belongsToMany(Payment, {through: 'User_Payment'})
-Payment.belongsToMany(User, {through: 'User_Payment'})
+User.belongsToMany(PaymentInfo, {through: 'User_PaymentInfo'})
+PaymentInfo.belongsToMany(User, {through: 'User_PaymentInfo'})
 
-Order.hasOne(Payment)
-Payment.belongTo(Order)
+Order.hasOne(PaymentInfo)
+PaymentInfo.belongTo(Order)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -26,5 +26,5 @@ module.exports = {
   User,
   Home,
   Order,
-  Payment
+  PaymentInfo
 }
