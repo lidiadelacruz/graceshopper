@@ -25,13 +25,21 @@ const User = db.define('user', {
       )
     }
   },
-  email: {
+  email: {=
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
     validate: {
       isEmail: true
     }
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  isLoggedIn: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
   password: {
     type: Sequelize.STRING,

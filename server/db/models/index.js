@@ -7,6 +7,7 @@ const PaymentInfo = require('./paymentInfo')
 User.hasMany(Order)
 Order.belongsTo(User)
 
+// Customize the Order_Home table to give it a quantity column
 Order.belongsToMany(Home, {through: 'Order_Home'})
 Home.belongsToMany(Order, {through: 'Order_Home'})
 
