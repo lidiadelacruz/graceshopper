@@ -5,7 +5,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
+      // explicitly select only the id, fullName, and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'fullName', 'email']
@@ -18,8 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    // may need to use findByPk()
-    res.json(await User.findById(req.params.id))
+    res.json(await User.findByPk(req.params.id))
   } catch (err) {
     next(err)
   }
@@ -32,7 +31,6 @@ router.post('/', async (req, res, next) => {
         email: req.body.email
       }
     })
-    // what status codes do we want to use?
     if (wasCreated) return res.status(201).send(user)
     else return res.sendStatus(409)
   } catch (err) {
@@ -40,12 +38,11 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// Add security around this route to prevent anyone from being able to delete a user
 router.delete('/:id', async (req, res, next) => {
   try {
-    // what status codes do we want to use?
     if (isNaN(req.params.id)) return res.sendStatus(400)
-    // may need to use findByPk()
-    const user = await User.findById(+req.params.id)
+    const user = await User.findByPk(+req.params.id)
     if (!user) return res.sendStatus(404)
     user.destroy()
     res.sendStatus(204)
@@ -66,8 +63,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     await user.update(req.body)
-    // status code?
-    res.status(204).end()
+    res.status(200).end()
   } catch (err) {
     next(err)
   }
