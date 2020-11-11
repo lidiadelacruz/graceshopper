@@ -33,6 +33,14 @@ const User = db.define('user', {
       isEmail: true
     }
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  isLoggedIn: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
@@ -49,6 +57,7 @@ const User = db.define('user', {
       return () => this.getDataValue('salt')
     }
   },
+  // do we actually need this?
   googleId: {
     type: Sequelize.STRING
   }
