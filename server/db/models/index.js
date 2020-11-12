@@ -27,5 +27,6 @@ module.exports = {
   User,
   Home,
   Order,
-  PaymentInfo
+  PaymentInfo,
+  Order_Home
 }
