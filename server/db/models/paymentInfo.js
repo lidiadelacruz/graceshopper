@@ -37,7 +37,10 @@ const PaymentInfo = db.define('paymentInfo', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isAfter: this.CardExpiryValidation()
+      isAfter: function() {
+        let todaysDate = new Date()
+        return `${todaysDate.getMonth()}/${todaysDate.getFullYear()}`
+      }
     }
   },
   cardCVV: {
@@ -49,7 +52,7 @@ const PaymentInfo = db.define('paymentInfo', {
       //isThreeDigits is a custom validator used to check if a user inputs a cvv of a correct length of 3 or 4 digits. Documentation: https://sequelize.org/master/manual/validations-and-constraints.html
       //alternative can be len: [3,4] or a variation of this.
       isThreeOrFourDigits(value) {
-        if (value.length !== 3 || value.length !== 4) {
+        if (value.length < 3 && value.length > 4) {
           throw new Error('A cvv can only be three or four digits long.')
         }
       }
@@ -68,10 +71,9 @@ const PaymentInfo = db.define('paymentInfo', {
 
 //helper function - assists field for Card Expiration
 
-PaymentInfo.CardExpiryValidation = function() {
-  let todaysDate = new Date()
-  return `${todaysDate.getMonth()}/${todaysDate.getFullYear()}`
-}
-
+// PaymentInfo.CardExpiryValidation = function() {
+//   let todaysDate = new Date()
+//   return `${todaysDate.getMonth()}/${todaysDate.getFullYear()}`
+// }
 
 module.exports = PaymentInfo
