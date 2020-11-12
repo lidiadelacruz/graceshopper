@@ -7,8 +7,8 @@ const Order_Home = db.define('order_home', {
     validate: {
       min: 0
     }
-  },
-  timestamps: false
+  }
+  // timestamps: false
 })
 
 module.exports = Order_Home
