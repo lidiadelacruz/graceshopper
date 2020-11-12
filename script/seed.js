@@ -1,19 +1,76 @@
 'use strict'
 
 const db = require('../server/db')
-const { User, Home } = require('../server/db/models')
+const { User, Home, User, PaymentInfo } = require('../server/db/models')
 const faker = require('faker')
+
+const times = x => f => {
+  if (x > 0) {
+    f()
+    times(x - 1)(f)
+  }
+}
+
+// create 100 users
+const users = []
+times(100)(() =>
+  users.push({
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
+  })
+)
+times(15)(() =>
+  users.push({
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    isLoggedIn: true
+  })
+)
+times(10)(() =>
+  users.push({
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    isAdmin: true
+  })
+)
+times(10)(() =>
+  users.push({
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    isAdmin: true,
+    isLoggedIn: true
+  })
+)
+
+// create 100 payments
+const paymentInfo = []
+times(100)(() =>
+  PaymentInfo.push({
+    firstName: faker.name.firstName(),
+    middleInitial: faker.random.alpha(),
+    lastName: faker.name.lastName(),
+    creditOrDebitCardNumber: faker.finance.creditCardNumber(),
+    cardExpirationDate: faker.date.future(),
+    cardCVV: faker.finance.creditCardCVV(),
+    billingAddress: faker.address.streetAddress(),
+    zipCode: faker.address.zipCode()
+  }))
+
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
 
-  const homes = await Home.create[{
+  const homes = await Home.create([{
     description: 'Completely remodeled century old schoolhouse, formerly Hanoverton High School. It is currently used as a rental facility. but can easily be constructed to accommodate an extraordinary home. Oversize, custom built barn doors can also separate the two rooms to accommodate smaller rooms. There is a full kitchen complete with appliances. All new electric on the main floor. A 4 phase gas furnace/ AC unit. Exposed brick walls and beams that take you back to yesteryear. Two custom fireplaces. Endless potential for a truly unique home. Construction upstairs has been started, just waiting for your ideas and finishing touches! The full basement also has potential to be finished- new block walls.',
     type: 'Old House',
     price: faker.commerce.price(),
@@ -118,10 +175,36 @@ async function seed() {
     imageUrl: 'public/img/ecofriendly5.jpeg',
     status: 'Available',
     inventory: 1
-  }
+  }])
 
-  ];
-  console.log(`seeded ${users.length} users`)
+  await Promise.all(
+    users.map(user => {
+      return User.create(user)
+    })
+  )
+
+  await Promise.all(
+    paymentInfo.map(payment => {
+      return PaymentInfo.create(payment)
+    })
+  )
+;
+  const orders = await Promise.all([
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Pending'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Pending'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Pending'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Pending'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Complete'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Complete'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Complete'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Complete'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Cancelled'}),
+    Order.create({shippingAddress: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCodeByState()}`, orderTotal: faker.commerce.price(), orderStatus: 'Cancelled'}),
+  ])
+
+
+
+  //console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 
