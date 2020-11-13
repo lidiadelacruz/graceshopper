@@ -43,7 +43,7 @@ router.delete('/:homesId', adminsOnly, async (req, res, next) => {
   }
 })
 
-router.put('/:homesId', adminsOnly, async (req, res, next) => {
+router.post('/:homesId', adminsOnly, async (req, res, next) => {
   try {
     const home = await Home.findByPk(req.params.homesId)
     await homes.update(req.body)
