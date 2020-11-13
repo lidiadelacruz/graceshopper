@@ -2,7 +2,7 @@
 
 const {expect} = require('chai')
 const faker = require('faker')
-const db = require('../index')
+const {db} = require('../index')
 const Home = db.model('home')
 const User = db.model('user')
 const PaymentInfo = db.model('paymentInfo')
