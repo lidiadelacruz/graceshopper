@@ -10,7 +10,7 @@ const Order = db.define('order', {
     }
   },
   orderTotal: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.FLOAT,
     defaultValue: 0,
     validate: {
       min: 0
