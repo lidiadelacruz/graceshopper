@@ -10,7 +10,6 @@ class AllUsers extends Component {
 
   render() {
     const users = this.props.users || []
-    console.log('users: ', users)
     return (
       <div>
         <h2>All Users</h2>
