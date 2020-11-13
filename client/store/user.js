@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
+const UPDATE_USER = 'UPDATE_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -17,6 +18,10 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const updateUser = updatedUserObj => ({
+  type: UPDATE_USER,
+  updatedUserObj
+})
 
 /**
  * THUNK CREATORS
@@ -56,13 +61,26 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const updateUserThunk = (userId, updatedUserObj) => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/users/${userId}`, updatedUserObj)
+      dispatch(updateUser(userId, updatedUserObj))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function userReducer(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
+    case UPDATE_USER:
+      return action.updatedUserObj
     case REMOVE_USER:
       return defaultUser
     default:
