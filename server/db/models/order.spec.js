@@ -1,8 +1,11 @@
 /* global describe beforeEach it */
 
+const chai = require('chai')
 const {expect} = require('chai')
-const db = require('../index')
+const {db} = require('../index')
 const Order = db.model('order')
+const chaiAsPromised = require('chai-as-promised') //await expect to.be rejected
+chai.use(chaiAsPromised)
 
 describe('Order model', () => {
   beforeEach(async () => {

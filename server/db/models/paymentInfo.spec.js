@@ -1,8 +1,11 @@
 /* global describe beforeEach it */
 
+const chai = require('chai')
 const {expect} = require('chai')
-const db = require('../index')
+const {db} = require('../index')
 const PaymentInfo = db.model('paymentInfo')
+const chaiAsPromised = require('chai-as-promised') //await expect to.be rejected
+chai.use(chaiAsPromised)
 
 describe('PaymentInfo model', () => {
   beforeEach(() => {
@@ -16,12 +19,12 @@ describe('PaymentInfo model', () => {
         const william = await PaymentInfo.create({
           firstName: 'William',
           lastName: 'Test',
-          creditOrDebitCardNumber: '368683198837147',
+          creditOrDebitCardNumber: '4485177968389306',
           cardExpirationDate: '11/2020',
           cardCVV: '123',
           billingAddress: '2508 Deer Haven Drive, Greenville, SC',
           zipCode: '11215'
-         })
+        })
         expect(william.firstName).to.equal(
           'William',
           'Was not able to create a user with name William'
@@ -34,11 +37,12 @@ describe('PaymentInfo model', () => {
           PaymentInfo.create({
             firstName: '',
             lastName: 'Test',
-            creditOrDebitCardNumber: '368683198837147',
+            creditOrDebitCardNumber: '4485177968389306',
             cardExpirationDate: '11/2020',
             cardCVV: '123',
             billingAddress: '2508 Deer Haven Drive, Greenville, SC',
-            zipCode: '11215'}),
+            zipCode: '11215'
+          }),
           "We shouldn't be able to create a firstName with an empty string"
         ).to.be.rejected
       })
@@ -48,7 +52,7 @@ describe('PaymentInfo model', () => {
         const baxter = await PaymentInfo.create({
           firstName: 'William',
           lastName: 'Baxter',
-          creditOrDebitCardNumber: '368683198837147',
+          creditOrDebitCardNumber: '4485177968389306',
           cardExpirationDate: '11/2020',
           cardCVV: '123',
           billingAddress: '2508 Deer Haven Drive, Greenville, SC',
@@ -67,22 +71,28 @@ describe('PaymentInfo model', () => {
 
       beforeEach(async () => {
         testPaymentInfo = await PaymentInfo.create({
-        firstName: 'William',
-        lastName: 'Baxter',
-        creditOrDebitCardNumber: '368683198837147',
-        cardExpirationDate: '11/2020',
-        cardCVV: '123',
-        billingAddress: '2508 Deer Haven Drive, Greenville, SC',
-        zipCode: '11215'
+          firstName: 'William',
+          lastName: 'Baxter',
+          creditOrDebitCardNumber: '4485177968389306',
+          cardExpirationDate: '11/2020',
+          cardCVV: '123',
+          billingAddress: '2508 Deer Haven Drive, Greenville, SC',
+          zipCode: '11215'
         })
       })
 
       it('returns the number 7 if the cardExpirationDate is the correct length', () => {
-        expect(testPaymentInfo.cardExpirationDate.length).to.equal(7, 'cardExpirationDate length was different than expected')
+        expect(testPaymentInfo.cardExpirationDate.length).to.equal(
+          7,
+          'cardExpirationDate length was different than expected'
+        )
       })
 
       it('returns the number 3 if the cardExpirationDate is the correct length', () => {
-        expect(testPaymentInfo.cardCVV.length).to.equal(3, 'cardCVV length was different than expected')
+        expect(testPaymentInfo.cardCVV.length).to.equal(
+          3,
+          'cardCVV length was different than expected'
+        )
       })
     })
   })
