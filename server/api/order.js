@@ -14,6 +14,7 @@ module.exports = router
 
 const adminsOnly = (req, res, next) => {
   //checks to see if isAdmin is false for currently logged in user.
+  //Questions: where are we getting user from?
   if (!req.user.isAdmin) {
     const error = new Error('Admin user only')
     //error status response code indicates that the request has not been applied because it lacks valid authentication credentials for the target resource
@@ -27,6 +28,7 @@ const adminsOnlyOrLoggedInUser = (req, res, next) => {
   //checks to see if isAdmin is false for currently logged in user or if a user's id matches the userId associated with an order
 
   //!!!! is this correct? ---Ask for feedback/more debugging may be needed.
+  //Questions: where are we getting user from amnd order from?
 
   if (!req.user.isAdmin || !req.user.id === req.order.userId) {
     const error = new Error(
@@ -86,9 +88,13 @@ router.post('/', adminsOnly, async (req, res, next) => {
 router.put('/:orderId', adminsOnly, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id)
-    await order.update(req.body)
-    //200 - means OK success
-    res.status(200).send(order)
+    if (order) {
+      const updatedOrder = await order.update(req.body)
+      //200 - means OK success
+      res.status(200).send(updatedOrder)
+    } else {
+      res.status(404).end()
+    }
   } catch (err) {
     next(err)
   }
