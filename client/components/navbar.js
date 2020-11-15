@@ -9,30 +9,47 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
     <div>
       <nav className="navbar">
         <div className="logo">
-          <img
-            src="img/nbh-logo.png"
-            height="50"
-            width="50"
-            alt="Never Before Homes Logo"
-          />
+          <Link to="/">
+            <img
+              src="img/nbh-logo.png"
+              height="50"
+              width="50"
+              alt="Never Before Homes Logo"
+            />
+          </Link>
           <h1>Never Before Homes</h1>
         </div>
         <div className="nav-right">
           {isLoggedIn ? (
-            <div>
+            <div className="nav-links">
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
               <Link to="/homes">Homes</Link>
               <Link to="/myaccount">My Account</Link>
+              <Link to="/cart">
+                <img
+                  src="img/cart-icon.png"
+                  height="30"
+                  width="30"
+                  alt="Cart Icon"
+                />
+              </Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
             </div>
           ) : (
-            <div>
+            <div className="nav-links">
               {/* The navbar will show these links before you log in */}
               <Link to="/homes">Homes</Link>
               <Link to="/login">My Account</Link>
+              <Link to="/cart">
+                <img
+                  src="img/cart-icon.png"
+                  height="30"
+                  width="30"
+                  alt="Cart Icon"
+                />
+              </Link>
               <button>
                 <Link to="/login">Login</Link>
               </button>
