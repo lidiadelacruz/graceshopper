@@ -9,7 +9,12 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
     <div>
       <nav className="navbar">
         <div className="logo">
-          <img src="nbh-logo.png" alt="Never Before Homes Logo" />
+          <img
+            src="img/nbh-logo.png"
+            height="50"
+            width="50"
+            alt="Never Before Homes Logo"
+          />
           <h1>BOILERMAKER</h1>
         </div>
         <div className="nav-right">
@@ -17,6 +22,8 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
             <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
+              <Link to="/homes">Homes</Link>
+              <Link to="/myaccount">My Account</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -24,8 +31,14 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
           ) : (
             <div>
               {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/homes">Homes</Link>
+              <Link to="/login">My Account</Link>
+              <button>
+                <Link to="/login">Login</Link>
+              </button>
+              <button>
+                <Link to="/signup">Sign Up</Link>
+              </button>
             </div>
           )}
         </div>
