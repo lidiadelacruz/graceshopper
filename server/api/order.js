@@ -43,6 +43,7 @@ const adminsOnlyOrLoggedInUser = (req, res, next) => {
 
 //route to view all order information
 //mounted on /api/orders b/c of app.use in index.js in server.
+// currently, adminsOnly is breaking this get route
 router.get('/', adminsOnly, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
