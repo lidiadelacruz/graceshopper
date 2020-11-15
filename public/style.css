@@ -1,9 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Nature Spirit', sans-serif;
+  color: #363c2a;
+  background-color: #feefe5;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: #7e998a;
+}
+
+p {
+  font-family: 'Avenir Next Condensed', sans-serif;
 }
 
 label {
@@ -18,4 +35,50 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+form button {
+  padding: 0.75em;
+}
+
+button {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border: none;
+  border-radius: 5px;
+  color: #feefe5;
+  background-color: #363c2a;
+  font-family: 'Nature Spirit', sans-serif;
+  transition: 0.3s all ease;
+}
+
+button:hover {
+  background-color: #7e998a;
+  color: #363c2a;
+}
+
+button a:hover {
+  color: #363c2a;
+}
+
+.navbar {
+  display: flex;
+  background-color: #fa8575;
+  padding: 1em;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  color: #feefe5;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h1 {
+  margin-left: 0.5em;
 }

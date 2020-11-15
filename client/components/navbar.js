@@ -7,25 +7,42 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn = false}) => {
   return (
     <div>
-      <h1>Never Before Homes</h1>
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
+      <nav className="navbar">
+        <div className="logo">
+          <img
+            src="img/nbh-logo.png"
+            height="50"
+            width="50"
+            alt="Never Before Homes Logo"
+          />
+          <h1>Never Before Homes</h1>
+        </div>
+        <div className="nav-right">
+          {isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <Link to="/home">Home</Link>
+              <Link to="/homes">Homes</Link>
+              <Link to="/myaccount">My Account</Link>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+            </div>
+          ) : (
+            <div>
+              {/* The navbar will show these links before you log in */}
+              <Link to="/homes">Homes</Link>
+              <Link to="/login">My Account</Link>
+              <button>
+                <Link to="/login">Login</Link>
+              </button>
+              <button>
+                <Link to="/signup">Sign Up</Link>
+              </button>
+            </div>
+          )}
+        </div>
       </nav>
-      <hr />
     </div>
   )
 }
