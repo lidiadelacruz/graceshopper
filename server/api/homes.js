@@ -2,10 +2,10 @@ const router = require('express').Router()
 const {Home} = require('../db/index')
 
 const adminsOnly = (req, res, next) => {
-  if (!req.user.isAdmin) {
-    const error = new Error('Admin user only')
+  if (!req.user || !req.user.isAdmin) {
+    const error = new Error('This page is only viewable by admin users.')
     error.status = 401
-    return next(err)
+    return next(error)
   }
   next()
 }
@@ -52,5 +52,7 @@ router.post('/:homesId', adminsOnly, async (req, res, next) => {
     next(error)
   }
 })
+
+// PUT route?
 
 module.exports = router

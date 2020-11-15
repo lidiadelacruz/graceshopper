@@ -13,32 +13,26 @@ module.exports = router
 //Note: a user should only be allowed to see their order, otherwise, seems like we need to limit access
 
 const adminsOnly = (req, res, next) => {
-  //checks to see if isAdmin is false for currently logged in user.
+  //checks to see if there is a logged in user and if yes, then if isAdmin is false for currently logged in user.
   //Questions: where are we getting user from?
-  if (!req.user.isAdmin) {
-    const error = new Error('Admin user only')
+  if (!req.user || !req.user.isAdmin) {
+    const error = new Error('This page is only viewable by admin users.')
     //error status response code indicates that the request has not been applied because it lacks valid authentication credentials for the target resource
     error.status = 401
-    return next(err)
+    return next(error)
   }
   next()
 }
 
-const adminsOnlyOrLoggedInUser = (req, res, next) => {
-  //checks to see if isAdmin is false for currently logged in user or if a user's id matches the userId associated with an order
-
-  //!!!! is this correct? ---Ask for feedback/more debugging may be needed.
-  //Questions: where are we getting user from amnd order from?
-
-  if (!req.user.isAdmin || !req.user.id === req.order.userId) {
-    const error = new Error(
-      'Access allowed for Admin or Current Logged In users only'
-    )
-    //error status response code indicates that the request has not been applied because it lacks valid authentication credentials for the target resource
+const adminOrByUserId = (req, res, next) => {
+  // This logic should be double checked.
+  if (req.user && (req.user.isAdmin || req.params.id === req.user.id)) {
+    next()
+  } else {
+    const error = new Error('This page is only viewable by admin users.')
     error.status = 401
-    return next(err)
+    return next(error)
   }
-  next()
 }
 
 //route to view all order information
@@ -63,7 +57,7 @@ router.get('/', adminsOnly, async (req, res, next) => {
 
 //route to view any single order
 //mounted on /api/orders/:orderId
-router.get('/:orderId', adminsOnlyOrLoggedInUser, async (req, res, next) => {
+router.get('/:orderId', adminOrByUserId, async (req, res, next) => {
   try {
     res.json(await Order.findByPk(req.params.id))
   } catch (err) {
@@ -74,6 +68,7 @@ router.get('/:orderId', adminsOnlyOrLoggedInUser, async (req, res, next) => {
 //route to add an order
 //mounted on /api/orders
 
+// do we want the logged-in user to be able to post an order? i.e. by clicking on checkout from the cart?
 router.post('/', adminsOnly, async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body)
