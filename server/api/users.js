@@ -2,7 +2,26 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+const adminsOnly = (req, res, next) => {
+  if (!req.user || !req.user.isAdmin) {
+    const error = new Error('This page is only viewable by admin users.')
+    error.status = 401
+    return next(error)
+  }
+  next()
+}
+
+const adminOrByUserId = (req, res, next) => {
+  if (req.user && (req.user.isAdmin || req.params.id === req.user.id)) {
+    next()
+  } else {
+    const error = new Error('This page is only viewable by admin users.')
+    error.status = 401
+    return next(error)
+  }
+}
+
+router.get('/', adminsOnly, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id, fullName, and email fields - even though
@@ -24,7 +43,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     res.json(await User.findByPk(req.params.id))
   } catch (err) {
@@ -32,6 +51,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// do we need limits on creating users?
 router.post('/', async (req, res, next) => {
   try {
     const [user, wasCreated] = await User.findOrCreate({
@@ -47,7 +67,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // Add security around this route to prevent anyone from being able to delete a user
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', adminsOnly, async (req, res, next) => {
   try {
     if (isNaN(req.params.id)) return res.sendStatus(400)
     const user = await User.findByPk(+req.params.id)
@@ -67,7 +87,7 @@ router.delete('/:id', async (req, res, next) => {
   */
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     await user.update(req.body)
