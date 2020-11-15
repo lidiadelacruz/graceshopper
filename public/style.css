@@ -29,7 +29,7 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin: 0.5em;
 }
 
 form div {
@@ -72,6 +72,12 @@ button a:hover {
 .nav-right {
   display: flex;
   color: #feefe5;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
