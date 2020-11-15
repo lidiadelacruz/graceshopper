@@ -5,11 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import allUserReducer from './allUsers'
 import userReducer from './user'
 import homesReducer from './allhomes'
+import homeReducer from './singleHome'
 
 const reducer = combineReducers({
   allUsers: allUserReducer,
   allHomes: homesReducer,
-  user: userReducer
+  user: userReducer,
+  home: homeReducer
 })
 
 const middleware = composeWithDevTools(

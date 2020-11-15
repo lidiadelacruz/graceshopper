@@ -4,21 +4,24 @@ import {fetchSingleHome} from '../store/singleHome'
 
 class SingleHome extends React.Component {
   componentDidMount() {
-    const id = this.props.match.params.homeId
+    const id = this.props.match.params.homesId
     this.props.fetchSingleHome(id)
   }
 
   render() {
     const home = this.props.home
+    const price = `$` + `${home.price}`
+    const info = `${home.type} | ${home.status}`
 
     return (
-      <div id="single-home">
-        <h1 id="home-price">{home.price}</h1>
-        <span id="home-status">{home.status}</span>
-        <span id="home-inventory">{home.inventory}</span>
-        <img src={home.imageUrl} />
-        <h3 id="home-type">{home.type}</h3>
-        <p id="home-description">{home.description}</p>
+      <div className="single-home">
+        <img src={home.imageUrl} height="350" width="350" />
+        <div>
+          <h1>{price}</h1>
+          <h1>{info}</h1>
+          <p>{home.description}</p>
+          <button id="add-cart">Add to Cart</button>
+        </div>
       </div>
     )
   }
