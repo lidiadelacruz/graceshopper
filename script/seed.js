@@ -75,7 +75,7 @@ async function seed() {
         'Completely remodeled century old schoolhouse, formerly Hanoverton High School. It is currently used as a rental facility. but can easily be constructed to accommodate an extraordinary home. Oversize, custom built barn doors can also separate the two rooms to accommodate smaller rooms. There is a full kitchen complete with appliances. All new electric on the main floor. A 4 phase gas furnace/ AC unit. Exposed brick walls and beams that take you back to yesteryear. Two custom fireplaces. Endless potential for a truly unique home. Construction upstairs has been started, just waiting for your ideas and finishing touches! The full basement also has potential to be finished- new block walls.',
       type: 'Old House',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/oldhome1.jpg',
+      imageUrl: 'public/img/oldhome1.png',
       status: 'Available',
       inventory: 1
     }),
@@ -84,7 +84,7 @@ async function seed() {
         'Brick n Stone stately home with wrap stone front porch and a stone side porch, a court yard with perennials and arbor as well as a wrap concrete drive. Enter the front double door vestibule into double leaded doors then into the foyer with large open staircase. Home features beautiful original natural woodwork throughout. Off the foyer you enter the parlor with a sun turret room and a stain glassed window. Living room has the original ceramic fireplace and door to side porch. Dining room has beamed ceiling and a built in cabinet with drawers. Breakfast nook and dining room have access to side porch, Den/5th bedroom has a closet and access to the first floor bath.',
       type: 'Old House',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/oldhome2.jpg',
+      imageUrl: 'public/img/oldhome2.png',
       status: 'Available',
       inventory: 1
     }),
@@ -93,7 +93,7 @@ async function seed() {
         "Restored in 1981 & listed on the National Register of Historic Places, Lawton's Mill (c. 1819-1830) is being offered with its attached shop (c. 1920's) and represents a unique opportunity to own a piece of Rhode Island history! Sited on 0.58 acres within Locust Valley Farm which was created and protected by a renowned RI architect & his wife, the Mill was last used as an architects office but was originally a textile mill. Seeking the next owner with the vision to use the property as a single-family home, professional office, crafts shop, art studio or retail gallery. The Mill (3620sf on 3 floors) needs some updating; the shop (920sf on 2 floors) requires full renovation",
       type: 'Old House',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/oldhome3.jpg',
+      imageUrl: 'public/img/oldhome3.png',
       status: 'Available',
       inventory: 1
     }),
@@ -111,7 +111,7 @@ async function seed() {
         'CLASSIC VINTAGE CATSKILL FARMHOUSE on 30 acres bordered by STATE LAND and walking distance to Oquaga State Park with lake and sandy beach. This country home has many improvements including updated electric, updated hot water heating system, full dry basement with cement floor and walk in entrance. The unique character of the house has been lovingly cared for! 3 bedrooms and 2 full bathrooms of which one is complete with a claw foot tub. Many original features.',
       type: 'Old House',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/oldhome5.webp',
+      imageUrl: 'public/img/oldhome5.png',
       status: 'Available',
       inventory: 1
     }),
@@ -151,7 +151,7 @@ async function seed() {
       type: 'Haunted',
       price: faker.commerce.price(),
       imageUrl:
-        'https://img-aws.ehowcdn.com/700x/cdn.onlyinyourstate.com/wp-content/uploads/2015/08/2825142048_5ba031169c_b-700x457.jpg',
+        'https://i.pinimg.com/originals/ac/82/8a/ac828a4c542034e63fed2d8271015fb9.jpg',
       status: 'Available',
       inventory: 1
     }),
@@ -170,7 +170,7 @@ async function seed() {
         'This is a unique and amazing one-of-a-kind property in Southern Oregon! Located just a short distance from town, this property offers 120 acres surrounded by mountains! The home offers well-crafted construction and a fully off-grid, solar system.',
       type: 'Eco-friendly',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/ecofriendlyhome3.jpg',
+      imageUrl: 'public/img/ecofriendlyhome3.png',
       status: 'Available',
       inventory: 1
     }),
@@ -179,7 +179,7 @@ async function seed() {
         'State of the art off the grid living with million dollar views on 20 acres just 25 minutes from downtown Taos,NM! 16 inch Pumicecrete walls w/ solar electricity, solar hot water, catchment, community well for TRUE off grid living-NO BILLS, just FRILL',
       type: 'Eco-friendly',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/ecofriendlyhome2.jpg',
+      imageUrl: 'public/img/ecofriendlyhome2.png',
       status: 'Available',
       inventory: 1
     }),
@@ -188,7 +188,7 @@ async function seed() {
         'A picture paints a thousand words, but our tiny house paints so much more.Not pictured in the video are the three custom made cedar boxes that store under the bed, a nice wooden stool, and a very nice antique lamp.These all go with the house.The house can be taken off the wheels and put on a permanent foundation.',
       type: 'Eco-friendly',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/ecofriendlyhome1.jpg',
+      imageUrl: 'public/img/ecofriendlyhome1.png',
       status: 'Available',
       inventory: 1
     }),
@@ -197,7 +197,7 @@ async function seed() {
         'Steel frame wood studs closed cell foam insulation throughout custom ceiling retractable awning and front deck tankless propane water heater gas stove full-size appliances full-size bathroom two sleeping loss storage throughout.',
       type: 'Eco-friendly',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/ecofriendly4.jpeg',
+      imageUrl: 'public/img/ecofriendly4.png',
       status: 'Available',
       inventory: 1
     }),
@@ -206,7 +206,7 @@ async function seed() {
         "Want a starter tiny house? Looking for a camp that's easy to maintain? Want an office space without the overhead? This is the house for you! 20ft long x 8 ft wide x 8ft high converted shipping container with built-in loft that fits queen bed. Plenty of built in storage under the loft allows for full-time living. Large windows and shipping doors that open offer plenty of light at all times of the day with screens to keep you from the bugs.",
       type: 'Eco-friendly',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/ecofriendly5.jpeg',
+      imageUrl: 'public/img/ecofriendly5.png',
       status: 'Available',
       inventory: 1
     })
@@ -303,20 +303,6 @@ async function runSeed() {
 if (module === require.main) {
   runSeed()
 }
-
-// const seed = async () => {
-//   try {
-//     await db.sync({force: true})
-
-//   }
-//   catch (err) {
-//     console.error(red('Oh noes! Something went wrong!'))
-//     console.error(err)
-//     db.close()
-//   }
-// }
-
-// seed();
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed

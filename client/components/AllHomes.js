@@ -9,21 +9,22 @@ class AllHomes extends Component {
 
   render() {
     const homes = this.props.homes || []
+    console.log('HOMES', homes)
     return (
       <div>
         <h1>All Homes Inventory</h1>
-        <div className="all-homes">
+        <ul className="all-homes">
           {homes.map(home => {
             return (
-              <div className="homes" key={home.id}>
-                <p>{home.imageUrl}</p>
-                <p>Type:{home.type}</p>
-                <p>Price:{home.price}</p>
-                <p>Status:{home.status}</p>
-              </div>
+              <ul key={home.id}>
+                <img src={home.imageUrl} />
+                <li>Type:{home.type}</li>
+                <li>Price:${home.price}</li>
+                <li>Status:{home.status}</li>
+              </ul>
             )
           })}
-        </div>
+        </ul>
       </div>
     )
   }
@@ -31,7 +32,7 @@ class AllHomes extends Component {
 
 const mapState = state => {
   return {
-    homes: state.homes
+    homes: state.allHomes
   }
 }
 
