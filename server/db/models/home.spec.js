@@ -1,6 +1,9 @@
+const chai = require('chai')
 const {expect} = require('chai')
-const Home = require('server/db/models/home.js')
-const {db} = require('../db')
+const Home = require('./home')
+const db = require('../db')
+const chaiAsPromised = require('chai-as-promised') //await expect to.be rejected
+chai.use(chaiAsPromised)
 
 describe('Home model', () => {
   beforeEach(() => {
@@ -9,13 +12,17 @@ describe('Home model', () => {
 
   describe('Basic Fields: type and inventory', () => {
     describe('description', () => {
-      it('descrption is a string', async () => {
+      it('description is a string', async () => {
         const oldHome = await Home.create({
-          type: 'Old Home',
-          inventory: 0
+          type: 'Old House',
+          inventory: 0,
+          description: 'Test Description',
+          price: 1.0,
+          status: 'Available',
+          imageUrl: ''
         })
         expect(oldHome.type).to.equal(
-          'Old Home',
+          'Old House',
           'was not able to create a home with Old Home'
         )
         expect(oldHome.inventory).to.equal(
@@ -23,31 +30,41 @@ describe('Home model', () => {
           'Was not able to create a home with inventory 0'
         )
       })
+
       it('type cannot be null', async () => {
         await expect(
-          Home.create({}),
-          "We shouldn't be able to create a user with no name"
+          Home.create({
+            type: null,
+            inventory: 0,
+            description: 'Test Description',
+            price: 1.0,
+            status: 'Available',
+            imageUrl: ''
+          }),
+          "We shouldn't be able to create a home with no type"
         ).to.be.rejected
       })
     })
-  })
-})
+  }) // end of describe('Basic Fields: type and inventory')
 
-describe('instanceMethods', () => {
-  describe('correctType', () => {
-    let house
+  describe('inventory field check', () => {
+    describe('correct inventory', () => {
+      let house
 
-    beforeEach(async () => {
-      house = await Home.create({
-        type: 'Haunted',
-        inventory: 1
+      beforeEach(async () => {
+        house = await Home.create({
+          type: 'Haunted',
+          inventory: 1,
+          price: 1.0,
+          status: 'Available',
+          imageUrl: '',
+          description: 'Test Description'
+        })
       })
-    })
-    it('returns true if the inventory is correct', () => {
-      expect(house.inventory(1).to.be.equal(true))
-    })
-    it('returns false if the password is incorrect', () => {
-      expect(house.inventory(2).to.be.equal(false))
-    })
-  })
-})
+
+      it('returns the correct inventory of the Home instance', () => {
+        expect(house.inventory).to.be.equal(1)
+      })
+    }) // end describe('correct inventory')
+  }) // end describe('inventory field check')
+}) // end describe('Home model')

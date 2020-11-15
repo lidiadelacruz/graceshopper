@@ -1,9 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {fetchSingleHome} from '../store/singleHome'
 
 class SingleHome extends React.Component {
   componentDidMount() {
-    // call on thunk here for fetching a single home
+    const id = this.props.match.params.homeId
+    this.props.fetchSingleHome(id)
   }
 
   render() {
@@ -21,3 +23,17 @@ class SingleHome extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    home: state.home
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    fetchSingleHome: id => dispatch(fetchSingleHome(id))
+  }
+}
+
+export default connect(mapState, mapDispatch)(SingleHome)

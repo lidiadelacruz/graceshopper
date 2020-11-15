@@ -15,7 +15,7 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
             width="50"
             alt="Never Before Homes Logo"
           />
-          <h1>BOILERMAKER</h1>
+          <h1>Never Before Homes</h1>
         </div>
         <div className="nav-right">
           {isLoggedIn ? (

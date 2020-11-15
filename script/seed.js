@@ -58,7 +58,7 @@ times(100)(() =>
     middleInitial: faker.random.alpha(),
     lastName: faker.name.lastName(),
     creditOrDebitCardNumber: '4485177968389306',
-    cardExpirationDate: '11/2020',
+    cardExpirationDate: '11/2024',
     cardCVV: '123',
     billingAddress: faker.address.streetAddress(),
     zipCode: faker.address.zipCode()
