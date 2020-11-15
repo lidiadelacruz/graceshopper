@@ -17,8 +17,8 @@ class AllHomes extends Component {
           {homes.map(home => {
             return (
               <ul key={home.id}>
-                <img src={home.imageUrl} />
                 <li>Type:{home.type}</li>
+                <img src={home.imageUrl} />
                 <li>Price:${home.price}</li>
                 <li>Status:{home.status}</li>
               </ul>
