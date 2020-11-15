@@ -69,11 +69,4 @@ const PaymentInfo = db.define('paymentInfo', {
   }
 })
 
-//helper function - assists field for Card Expiration
-
-// PaymentInfo.CardExpiryValidation = function() {
-//   let todaysDate = new Date()
-//   return `${todaysDate.getMonth()}/${todaysDate.getFullYear()}`
-// }
-
 module.exports = PaymentInfo
