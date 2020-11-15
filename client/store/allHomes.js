@@ -63,7 +63,7 @@ function homesReducer(state = [], action) {
     case ADDED_HOME:
       return [...state, action.home]
     case DELETED_HOME:
-      return state.filter(home => homeId !== action.homeId)
+      return state.filter(home => home.Id !== action.homeId)
     default:
       return state
   }
