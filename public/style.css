@@ -10,6 +10,10 @@ body {
   background-color: #feefe5;
 }
 
+h1 {
+  font-weight: normal;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -21,6 +25,10 @@ a:hover {
 
 p {
   font-family: 'Avenir Next Condensed', sans-serif;
+}
+
+img {
+  border-radius: 5px;
 }
 
 label {
@@ -81,4 +89,26 @@ button a:hover {
 
 .logo h1 {
   margin-left: 0.5em;
+}
+
+.single-home {
+  display: flex;
+  padding: 1.5em;
+  align-items: top;
+}
+
+.single-home div {
+  flex-grow: 1;
+  padding: 1em;
+}
+
+.single-home h1 {
+  margin-bottom: 0.5em;
+}
+
+.single-home button {
+  /* need to center under description */
+  justify-items: center;
+  padding: 1em;
+  margin-top: 1em;
 }
