@@ -16,8 +16,8 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+const getUser = user => ({type: GET_USER, user}) // change isLoggedIn to true
+const removeUser = () => ({type: REMOVE_USER}) // change isLoggedIn to false
 const updateUser = updatedUserObj => ({
   type: UPDATE_USER,
   updatedUserObj
@@ -45,7 +45,7 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/myaccount')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

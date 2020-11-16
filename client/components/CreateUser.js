@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 //import PropTypes from 'prop-types'
 import {postUser} from '../store/allUsers'
+import {auth} from '../store'
 
 class CreateUser extends Component {
   constructor() {
@@ -30,6 +31,7 @@ class CreateUser extends Component {
         password: this.state.password
       }
       this.props.sendUserToPost(newUserObj)
+      this.props.auth(newUserObj.email, newUserObj.password, 'login')
       this.setState({
         firstName: '',
         lastName: '',
@@ -77,11 +79,11 @@ class CreateUser extends Component {
             <input name="password" type="password" />
           </div>
           <div>
-            <button type="submit">Submit</button>
+            <button type="submit">Sign Up</button>
           </div>
           {/* {error && error.response && <div> {error.response.data} </div>} */}
         </form>
-        <a href="/auth/google">Signup with Google</a>
+        <a href="/auth/google">Sign Up with Google</a>
       </div>
     )
   }
@@ -98,7 +100,9 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    sendUserToPost: userObj => dispatch(postUser(userObj))
+    sendUserToPost: userObj => dispatch(postUser(userObj)),
+    auth: (email, password, formName) =>
+      dispatch(auth(email, password, formName))
   }
 }
 
