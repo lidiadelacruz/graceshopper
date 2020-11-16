@@ -1,58 +1,90 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import {auth} from '../store'
+//import PropTypes from 'prop-types'
+import {postUser} from '../store/allUsers'
 
-/**
- * COMPONENT
- */
-const CreateUser = props => {
-  const {name, displayName, handleSubmit, error} = props
+class CreateUser extends Component {
+  constructor() {
+    super()
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="firstName">
-            <small>First Name</small>
-          </label>
-          <input name="firstName" type="text" />
-        </div>
-        <div>
-          <label htmlFor="lastName">
-            <small>Last Name</small>
-          </label>
-          <input name="lastName" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-  )
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  handleSubmit(evt) {
+    try {
+      evt.preventDefault()
+      const newUserObj = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password
+      }
+      this.props.sendUserToPost(newUserObj)
+      this.setState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+      })
+      this.render()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  render() {
+    //const {name, displayName, handleSubmit, error} =
+    return (
+      <div>
+        <form
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+          name={name}
+        >
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="firstName">
+              <small>First Name</small>
+            </label>
+            <input name="firstName" type="text" />
+          </div>
+          <div>
+            <label htmlFor="lastName">
+              <small>Last Name</small>
+            </label>
+            <input name="lastName" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+          {/* {error && error.response && <div> {error.response.data} </div>} */}
+        </form>
+        <a href="/auth/google">Signup with Google</a>
+      </div>
+    )
+  }
 }
-
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 
 const mapSignup = state => {
   return {
@@ -64,13 +96,7 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
-    }
+    sendUserToPost: userObj => dispatch(postUser(userObj))
   }
 }
 
@@ -79,9 +105,9 @@ export default connect(mapSignup, mapDispatch)(CreateUser)
 /**
  * PROP TYPES
  */
-CreateUser.propTypes = {
-  name: PropTypes.string.isRequired,
-  displayName: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
-}
+// CreateUser.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   displayName: PropTypes.string.isRequired,
+//   handleSubmit: PropTypes.func.isRequired,
+//   error: PropTypes.object
+// }

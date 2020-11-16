@@ -21,7 +21,8 @@ const adminOrByUserId = (req, res, next) => {
   }
 }
 
-router.get('/', adminsOnly, async (req, res, next) => {
+//adminsOnly
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id, fullName, and email fields - even though
@@ -43,7 +44,8 @@ router.get('/', adminsOnly, async (req, res, next) => {
   }
 })
 
-router.get('/:id', adminOrByUserId, async (req, res, next) => {
+//adminOrByUserId
+router.get('/:id', async (req, res, next) => {
   try {
     res.json(await User.findByPk(req.params.id))
   } catch (err) {
@@ -52,15 +54,24 @@ router.get('/:id', adminOrByUserId, async (req, res, next) => {
 })
 
 // do we need limits on creating users?
+// router.post('/', async (req, res, next) => {
+//   try {
+//     const [user, wasCreated] = await User.findOrCreate({
+//       where: {
+//         email: req.body.email
+//       }
+//     })
+//     if (wasCreated) return res.status(201).send(user)
+//     else return res.sendStatus(409)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
 router.post('/', async (req, res, next) => {
   try {
-    const [user, wasCreated] = await User.findOrCreate({
-      where: {
-        email: req.body.email
-      }
-    })
-    if (wasCreated) return res.status(201).send(user)
-    else return res.sendStatus(409)
+    const user = await User.create(req.body)
+    res.json(user)
   } catch (err) {
     next(err)
   }
