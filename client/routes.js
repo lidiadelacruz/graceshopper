@@ -7,8 +7,9 @@ import {
   Signup,
   UserHome,
   AllUsers,
-  SingleHome,
-  AllHomes
+  SingleUser,
+  AllHomes,
+  SingleHome
 } from './components'
 import {me} from './store'
 
@@ -27,14 +28,15 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
-        <Route path="/users" component={AllUsers} />
+        <Route exact path="/users" component={AllUsers} />
+        <Route exact path="/users/:id" component={SingleUser} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/homes" component={AllHomes} />
         <Route exact path="/homes/:homesId" component={SingleHome} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route path="/myaccount" component={UserHome} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

@@ -54,19 +54,13 @@ router.get('/:id', adminOrByUserId, async (req, res, next) => {
 // do we need limits on creating users?
 router.post('/', async (req, res, next) => {
   try {
-    const [user, wasCreated] = await User.findOrCreate({
-      where: {
-        email: req.body.email
-      }
-    })
-    if (wasCreated) return res.status(201).send(user)
-    else return res.sendStatus(409)
+    const user = await User.create(req.body)
+    res.json(user)
   } catch (err) {
     next(err)
   }
 })
 
-// Add security around this route to prevent anyone from being able to delete a user
 router.delete('/:id', adminsOnly, async (req, res, next) => {
   try {
     if (isNaN(req.params.id)) return res.sendStatus(400)
@@ -77,14 +71,6 @@ router.delete('/:id', adminsOnly, async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-  /*
-  try {
-    await User.destroy({ where: {id: req.params.id} });
-    res.status(204).end();
-  } catch (err) {
-    next(err);
-  }
-  */
 })
 
 router.put('/:id', adminOrByUserId, async (req, res, next) => {

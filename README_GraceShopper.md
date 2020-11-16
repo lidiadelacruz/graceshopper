@@ -22,6 +22,8 @@ Please visit Never Before Homes at https://neverbeforehomes.herokuapp.com/
 
 1.  Fork the "Never Before Homes" project repository from GitHub to your personal GitHub account and clone it to your local machine. Please reference the GitHub Project link provided in the "Technologies" section of this README.
 
-2.  `npm install` to download project dependencies
+2.  `npm install` to download project dependencies.
 
 3.  Running `npm run start-dev` will allow you to view the site on your local machine.
+
+4.  `npm test` to run unit tests.

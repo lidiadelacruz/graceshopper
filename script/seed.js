@@ -284,19 +284,5 @@ if (module === require.main) {
   runSeed()
 }
 
-// const seed = async () => {
-//   try {
-//     await db.sync({force: true})
-
-//   }
-//   catch (err) {
-//     console.error(red('Oh noes! Something went wrong!'))
-//     console.error(err)
-//     db.close()
-//   }
-// }
-
-// seed();
-
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed
