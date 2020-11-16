@@ -1,4 +1,5 @@
-const {Order} = require('../db')
+const {Order, Order_Home} = require('../db')
+const Home = require('../db/models/home')
 
 const router = require('express').Router()
 
@@ -17,12 +18,23 @@ router.post('/', async (req, res, next) => {
 // GET
 router.get('/:orderId', async (req, res, next) => {
   try {
-    const currentCart = await Order.findOne({
-      where: {
-        id: req.params.orderId
-      }
-    })
-    res.send(currentCart)
+    if (req.body.id) {
+      const currentCart = await Order.findOrCreate({
+        where: {
+          id: req.body.id,
+          orderStatus: 'Pending'
+        },
+        include: [{model: Home}]
+      })
+      res.send(currentCart)
+    } //else {
+    //  const cart = await Order.findOrCreate({
+    //   where: {
+    //     sessionId: 1,
+    //     orderStatus: 'Pending'
+    //   }
+    //  })
+    // }
   } catch (error) {
     next(error)
   }
