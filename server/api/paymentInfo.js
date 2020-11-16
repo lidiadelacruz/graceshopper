@@ -1,27 +1,8 @@
 const router = require('express').Router()
 const {PaymentInfo} = require('../db/models')
+const {adminsOnly, adminOrByUserId} = require('./util')
 
 module.exports = router
-
-const adminsOnly = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
-    const error = new Error('This page is only viewable by admin users.')
-    error.status = 401
-    return next(error)
-  }
-  next()
-}
-
-const adminOrByUserId = (req, res, next) => {
-  // This logic should be double checked.
-  if (req.user && (req.user.isAdmin || req.params.id === req.user.id)) {
-    next()
-  } else {
-    const error = new Error('This page is only viewable by admin users.')
-    error.status = 401
-    return next(error)
-  }
-}
 
 //mounted on /api/paymentInfo
 //for admins only - very sensitive information
