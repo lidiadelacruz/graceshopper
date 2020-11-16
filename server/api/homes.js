@@ -1,14 +1,6 @@
 const router = require('express').Router()
 const {Home} = require('../db/index')
-
-const adminsOnly = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
-    const error = new Error('This page is only viewable by admin users.')
-    error.status = 401
-    return next(error)
-  }
-  next()
-}
+const {adminsOnly} = require('./util')
 
 router.get('/', async (req, res, next) => {
   try {
