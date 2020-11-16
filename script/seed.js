@@ -112,16 +112,6 @@ async function seed() {
     }),
     Home.create({
       description:
-        'CLASSIC VINTAGE CATSKILL FARMHOUSE on 30 acres bordered by STATE LAND and walking distance to Oquaga State Park with lake and sandy beach. This country home has many improvements including updated electric, updated hot water heating system, full dry basement with cement floor and walk in entrance. The unique character of the house has been lovingly cared for! 3 bedrooms and 2 full bathrooms of which one is complete with a claw foot tub. Many original features.',
-      type: 'Old House',
-      price: faker.commerce.price(),
-      imageUrl:
-        'https://images.unsplash.com/photo-1565017058408-ba547665856c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80',
-      status: 'Available',
-      inventory: 1
-    }),
-    Home.create({
-      description:
         'In 1889, George Starrett built this Queen Anne-style mansion for his queen, Ann. In recent years, the house — with an eight-sided dome tower, solar calendar and other opulent details — has served as a boutique bed-and-breakfast. But a female manifestation with red hair and a male spirit — believed to be Ann and George — have been spotted on the premises.',
       type: 'Haunted',
       price: faker.commerce.price(),
@@ -162,16 +152,6 @@ async function seed() {
     }),
     Home.create({
       description:
-        'Ghost hunters may want to add this house their list of potentially haunted homes. The listing description hints at the possibility of the 1870 Victorian being haunted, but it might also just be old. “come see for yourself.”',
-      type: 'Haunted',
-      price: faker.commerce.price(),
-      imageUrl:
-        'https://images.unsplash.com/photo-1602769921397-e870d926e1e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=745&q=80',
-      status: 'Available',
-      inventory: 1
-    }),
-    Home.create({
-      description:
         'This is a unique and amazing one-of-a-kind property in Southern Oregon! Located just a short distance from town, this property offers 120 acres surrounded by mountains! The home offers well-crafted construction and a fully off-grid, solar system.',
       type: 'Eco-friendly',
       price: faker.commerce.price(),
@@ -207,16 +187,6 @@ async function seed() {
       price: faker.commerce.price(),
       imageUrl:
         'https://images.unsplash.com/photo-1548795179-8bfc5c1ebb24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80',
-      status: 'Available',
-      inventory: 1
-    }),
-    Home.create({
-      description:
-        "Want a starter tiny house? Looking for a camp that's easy to maintain? Want an office space without the overhead? This is the house for you! 20ft long x 8 ft wide x 8ft high converted shipping container with built-in loft that fits queen bed. Plenty of built in storage under the loft allows for full-time living. Large windows and shipping doors that open offer plenty of light at all times of the day with screens to keep you from the bugs.",
-      type: 'Eco-friendly',
-      price: faker.commerce.price(),
-      imageUrl:
-        'https://images.unsplash.com/photo-1600669757204-f40e31f828a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=755&q=80',
       status: 'Available',
       inventory: 1
     })

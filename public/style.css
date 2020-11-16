@@ -82,3 +82,14 @@ button a:hover {
 .logo h1 {
   margin-left: 0.5em;
 }
+
+.all-homes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+img {
+  border-radius: 8px;
+}
