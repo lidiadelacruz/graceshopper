@@ -6,6 +6,7 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {default as AllUsers} from './AllUsers'
+export {default as SingleUser} from './SingleUser'
 export {default as AllHomes} from './AllHomes'
 export {default as SingleHome} from './SingleHome'
 export {default as Signup} from './CreateUser'

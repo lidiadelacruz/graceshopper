@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchAllUsers} from '../store/allUsers'
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 class AllUsers extends Component {
   componentDidMount() {
@@ -11,17 +11,28 @@ class AllUsers extends Component {
   render() {
     const users = this.props.users || []
     return (
-      <div>
-        <h2>All Users</h2>
-        <div className="user-list">
-          {users.map(user => {
-            return (
-              <div className="all-users" key={user.id}>
-                <li>{user.fullName}</li>
-              </div>
-            )
-          })}
-        </div>
+      <div className="user-page">
+        <h1>All Users</h1>
+        {users === [] ? (
+          <div className="user-list">
+            {users.map(user => {
+              return (
+                <div className="user" key={user.id}>
+                  <Link to={`/users/${user.id}`} className="user-link">
+                    {user.fullName}
+                  </Link>
+                  {user.isAdmin === true ? (
+                    <div>This user has admin privileges</div>
+                  ) : (
+                    <button type="button">Make Admin</button>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div>Only admin users can view this page.</div>
+        )}
       </div>
     )
   }
