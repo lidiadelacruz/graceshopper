@@ -20,10 +20,10 @@ class AllHomes extends Component {
             return (
               <ul key={home.id}>
                 <h2>Type: {home.type}</h2>
-                <img src={home.imageUrl} width="300" height="300" />
                 <Link to={`/homes/${home.id}`}>
-                  <li>Price:$ {home.price}</li>
+                  <img src={home.imageUrl} width="300" height="300" />
                 </Link>
+                <li>Price:$ {home.price}</li>
                 <li>Status: {home.status}</li>
                 <br />
                 <br />
