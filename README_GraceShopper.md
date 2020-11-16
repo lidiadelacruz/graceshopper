@@ -10,8 +10,6 @@ For Deployment, this site is supported by heroku, GitHub, and Travis-CI for cont
 
 Heroku app: https://neverbeforehomes.herokuapp.com/
 
-Heroku git URL: https://git.heroku.com/neverbeforehomes.git
-
 GitHub Project Link: https://github.com/graceshopper-homes4chocolate/graceshopper
 
 # To view the project
