@@ -15,7 +15,6 @@ module.exports = router
 
 //route to view all order information
 //mounted on /api/orders b/c of app.use in index.js in server.
-// currently, adminsOnly is breaking this get route
 router.get('/', adminsOnly, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -34,8 +33,8 @@ router.get('/', adminsOnly, async (req, res, next) => {
 })
 
 //route to view any single order
-//mounted on /api/orders/:orderId
-router.get('/:orderId', adminOrByUserId, async (req, res, next) => {
+//mounted on /api/orders/:id
+router.get('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     res.json(await Order.findByPk(req.params.id))
   } catch (err) {
@@ -57,9 +56,9 @@ router.post('/', adminsOnly, async (req, res, next) => {
 })
 
 //route to update/edit a single order
-//mounted on /api/orders/:orderId
+//mounted on /api/orders/:id
 
-router.put('/:orderId', adminsOnly, async (req, res, next) => {
+router.put('/:id', adminsOnly, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id)
     if (order) {
