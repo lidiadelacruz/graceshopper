@@ -36,7 +36,8 @@ class CreateUser extends Component {
         email: '',
         password: ''
       })
-      this.render()
+      // redirect to My Account view
+      // this.history.push(`./users/${this.props.user.id}`)
     } catch (err) {
       console.error(err)
     }
@@ -90,6 +91,7 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
+    id: state.user.id,
     error: state.user.error
   }
 }

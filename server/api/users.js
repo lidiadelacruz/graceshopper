@@ -21,8 +21,7 @@ const adminOrByUserId = (req, res, next) => {
   }
 }
 
-//adminsOnly
-router.get('/', async (req, res, next) => {
+router.get('/', adminsOnly, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id, fullName, and email fields - even though
@@ -44,8 +43,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//adminOrByUserId
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     res.json(await User.findByPk(req.params.id))
   } catch (err) {
@@ -54,20 +52,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // do we need limits on creating users?
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const [user, wasCreated] = await User.findOrCreate({
-//       where: {
-//         email: req.body.email
-//       }
-//     })
-//     if (wasCreated) return res.status(201).send(user)
-//     else return res.sendStatus(409)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
 router.post('/', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
@@ -77,7 +61,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-// Add security around this route to prevent anyone from being able to delete a user
 router.delete('/:id', adminsOnly, async (req, res, next) => {
   try {
     if (isNaN(req.params.id)) return res.sendStatus(400)
@@ -88,14 +71,6 @@ router.delete('/:id', adminsOnly, async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-  /*
-  try {
-    await User.destroy({ where: {id: req.params.id} });
-    res.status(204).end();
-  } catch (err) {
-    next(err);
-  }
-  */
 })
 
 router.put('/:id', adminOrByUserId, async (req, res, next) => {

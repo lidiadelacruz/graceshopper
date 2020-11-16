@@ -6,6 +6,7 @@ class SingleUser extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.userId
     this.props.getSingleUser(id)
+    // this.history.push(`./users/${this.props.user.id}`)
   }
 
   render() {

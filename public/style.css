@@ -118,3 +118,25 @@ button a:hover {
   padding: 1em;
   margin-top: 1em;
 }
+
+.user-page {
+  text-align: center;
+}
+
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user {
+  align-items: center;
+  width: 25rem;
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.user-link {
+  font-size: 14pt;
+}
