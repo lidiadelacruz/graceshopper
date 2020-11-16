@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+// same note here about consolidating this reusable function
+
 const adminsOnly = (req, res, next) => {
   if (!req.user || !req.user.isAdmin) {
     const error = new Error('This page is only viewable by admin users.')
@@ -10,6 +12,8 @@ const adminsOnly = (req, res, next) => {
   }
   next()
 }
+
+// same note here about consolidating this reusable function
 
 const adminOrByUserId = (req, res, next) => {
   if (req.user && (req.user.isAdmin || req.params.id === req.user.id)) {

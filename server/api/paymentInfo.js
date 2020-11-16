@@ -3,6 +3,7 @@ const {PaymentInfo} = require('../db/models')
 
 module.exports = router
 
+// this function is already defined in homes.js - can we put it in a central location for reuse?
 const adminsOnly = (req, res, next) => {
   if (!req.user || !req.user.isAdmin) {
     const error = new Error('This page is only viewable by admin users.')
@@ -35,6 +36,8 @@ router.get('/', adminsOnly, async (req, res, next) => {
   }
 })
 
+// Be careful with what you call the req.params variable. Double check that this route works. 
+
 //mounted on /api/paymentInfo/:paymentInfoId
 //for admins only or logged in user to see their personal information
 router.get('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
@@ -56,6 +59,8 @@ router.post('/', adminOrByUserId, async (req, res, next) => {
   }
 })
 
+// Be careful with what you call the req.params variable. Double check that this route works. 
+
 //mounted on /api/paymentInfo/:paymentInfoId
 //allow admins or logged in user to update paymentInfo
 router.put('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
@@ -72,6 +77,10 @@ router.put('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
     next(err)
   }
 })
+
+// Be careful with what you call the req.params variable. Double check that this route works.
+
+// no need to use "end" with sendStatus as sendStatus will end it for you 
 
 //mounted on /api/paymentInfo/:paymentInfoId
 //allow admins or logged in user to delete paymentInfo
