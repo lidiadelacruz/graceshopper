@@ -35,9 +35,9 @@ router.get('/', adminsOnly, async (req, res, next) => {
   }
 })
 
-//mounted on /api/paymentInfo/:paymentInfoId
+//mounted on /api/paymentInfo/:id
 //for admins only or logged in user to see their personal information
-router.get('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
+router.get('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     res.json(await PaymentInfo.findByPk(req.params.id))
   } catch (err) {
@@ -56,9 +56,9 @@ router.post('/', adminOrByUserId, async (req, res, next) => {
   }
 })
 
-//mounted on /api/paymentInfo/:paymentInfoId
+//mounted on /api/paymentInfo/:id
 //allow admins or logged in user to update paymentInfo
-router.put('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
+router.put('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     const paymentInfo = await PaymentInfo.findByPk(req.params.id)
     if (paymentInfo) {
@@ -73,9 +73,9 @@ router.put('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
   }
 })
 
-//mounted on /api/paymentInfo/:paymentInfoId
+//mounted on /api/paymentInfo/:id
 //allow admins or logged in user to delete paymentInfo
-router.delete('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
+router.delete('/:id', adminOrByUserId, async (req, res, next) => {
   try {
     if (isNaN(req.params.id)) return res.sendStatus(400)
 
@@ -85,7 +85,7 @@ router.delete('/:paymentInfoId', adminOrByUserId, async (req, res, next) => {
       }
     })
     //204 - request has succeeded
-    res.sendStatus(204).end()
+    res.status(204).end()
   } catch (err) {
     next(err)
   }
