@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // GET
-router.get('/:orderId', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     if (req.body.id) {
       const currentCart = await Order.findOrCreate({
