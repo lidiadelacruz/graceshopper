@@ -13,18 +13,21 @@ class AllUsers extends Component {
     return (
       <div className="user-page">
         <h1>All Users</h1>
-        {users === [] ? (
+        {this.props.isAdmin ? (
           <div className="user-list">
             {users.map(user => {
               return (
                 <div className="user" key={user.id}>
-                  <Link to={`/users/${user.id}`} className="user-link">
-                    {user.fullName}
-                  </Link>
+                  <h5 className="user-link">{user.fullName}</h5>
                   {user.isAdmin === true ? (
                     <div>This user has admin privileges</div>
                   ) : (
-                    <button type="button">Make Admin</button>
+                    <div>
+                      <button type="button">
+                        Make {user.firstName} an Admin User
+                      </button>
+                      <button type="button">Delete this user account</button>
+                    </div>
                   )}
                 </div>
               )
@@ -40,7 +43,8 @@ class AllUsers extends Component {
 
 const mapState = state => {
   return {
-    users: state.allUsers
+    users: state.allUsers,
+    isAdmin: state.user.isAdmin
   }
 }
 

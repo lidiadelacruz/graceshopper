@@ -7,7 +7,6 @@ import {
   Signup,
   UserHome,
   AllUsers,
-  SingleUser,
   AllHomes,
   SingleHome
 } from './components'
@@ -31,7 +30,6 @@ class Routes extends Component {
           {/* Routes placed here are available to all visitors */}
           <Route exact path="/login" component={Signup} />
           <Route exact path="/users" component={AllUsers} />
-          <Route exact path="/users/:id" component={SingleUser} />
           {/* <Route path="/signup" component={Signup} /> */}
           <Route exact path="/homes" component={AllHomes} />
           <Route exact path="/homes/:homesId" component={SingleHome} />
