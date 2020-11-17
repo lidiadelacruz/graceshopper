@@ -53,7 +53,10 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
                 />
               </Link>
               <button type="button">
-                <Link to="/login">Login / Sign Up</Link>
+                <Link to="/login">Login</Link>
+              </button>
+              <button type="button">
+                <Link to="/signup">Sign Up</Link>
               </button>
             </div>
           )}

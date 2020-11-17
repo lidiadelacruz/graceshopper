@@ -21,7 +21,7 @@ class CreateUser extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     try {
       evt.preventDefault()
       const newUserObj = {
@@ -30,8 +30,9 @@ class CreateUser extends Component {
         email: this.state.email,
         password: this.state.password
       }
-      this.props.sendUserToPost(newUserObj)
-      this.props.auth(newUserObj.email, newUserObj.password, 'login')
+      await this.props.sendUserToPost(newUserObj)
+      await this.props.auth(this.state.email, this.state.password, 'login')
+      // this.props.auth(newUserObj.email, newUserObj.password, 'signup')
       this.setState({
         firstName: '',
         lastName: '',
@@ -39,14 +40,15 @@ class CreateUser extends Component {
         password: ''
       })
       // redirect to My Account view
-      // this.history.push(`./users/${this.props.user.id}`)
+      this.history.push(`/myaccount`)
     } catch (err) {
       console.error(err)
     }
   }
 
   render() {
-    //const {name, displayName, handleSubmit, error} =
+    const {name, error} = this.props
+
     return (
       <div>
         <form
@@ -81,9 +83,12 @@ class CreateUser extends Component {
           <div>
             <button type="submit">Sign Up</button>
           </div>
-          {/* {error && error.response && <div> {error.response.data} </div>} */}
+          {error && error.response && <div> {error.response.data} </div>}
         </form>
         <a href="/auth/google">Sign Up with Google</a>
+        <p>
+          Already have an account? <a href="/login">Login here!</a>
+        </p>
       </div>
     )
   }
