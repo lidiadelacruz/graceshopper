@@ -25,12 +25,12 @@ class Routes extends Component {
 
     return (
       <div>
-        <Route exact path="/login" component={Login} />
+        {/* <Route exact path="/login" component={Login} /> */}
         <Switch>
           {/* Routes placed here are available to all visitors */}
-          <Route exact path="/login" component={Signup} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/users" component={AllUsers} />
-          {/* <Route path="/signup" component={Signup} /> */}
+          <Route path="/signup" component={Signup} />
           <Route exact path="/homes" component={AllHomes} />
           <Route exact path="/homes/:homesId" component={SingleHome} />
           {isLoggedIn ? (
