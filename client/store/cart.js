@@ -36,6 +36,10 @@ const addToCart = home => {
   return {type: ADD_TO_CART, home}
 }
 
+const addToQuantity = home => {
+  return {type: ADD_QUANTITY_TO_CART, home}
+}
+
 //thunk creator
 
 //fetchCart
@@ -52,8 +56,31 @@ export const fetchCart = () => {
 
 //Add Home
 //axios request - what are we getting from the backend? communication to backend to get homeId? put!!! request because we are updating an existing "cart/order".
-export const addNewHome = () => {}
+export const addNewHome = home => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/cart', home)
+      dispatch(addToCart(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
+//Increasing the QTY of a home
+export const increaseQty = home => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(
+        `/api/cart/${orderId}/${home.homeId}`,
+        home
+      )
+      dispatch(addToQuantity(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 //Redux action type/creator for retrieving the current cart
 
 //checkout button
@@ -61,10 +88,17 @@ export const addNewHome = () => {}
 //add, remove, update
 
 //conside state to be [] for length functionality - check if it is empty/number of items
-function cartReducer(state = {}, action) {
+function cartReducer(state = {cart: []}, action) {
   switch (action.type) {
     case GOT_CART:
       return action.cart
+    case ADD_TO_CART:
+      const newItem = {
+        id: action.home.homeId,
+        price: action.home.price,
+        status: action.home.status
+      }
+      return {...state, cart: [...state.cart, newItem]}
     default:
       return state
   }

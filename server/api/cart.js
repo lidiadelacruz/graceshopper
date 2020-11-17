@@ -51,6 +51,26 @@ router.put('/:orderId', async (req, res, next) => {
   }
 })
 
+//Route for Order_homes put request
+
+router.put('/:orderId/:homeId', async (req, res, next) => {
+  try {
+    let currentQty = await Order_Home
+    const updateOrderQty = await Order_Home.findOrCreate({
+      where: {
+        orderId: req.params.orderId
+      }
+    })
+    await Order_Home.increment('quantity', {
+      by: 1,
+      where: {orderId: req.params.orderId, homeId: req.params.homeId}
+    })
+    res.send(updateOrderQty)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //REMOVE
 router.delete('/:orderId', async (req, res, next) => {
   try {
