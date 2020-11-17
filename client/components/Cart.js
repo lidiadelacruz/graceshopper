@@ -1,15 +1,12 @@
-import React, {useContext} from 'react'
-import {CartContext} from './CartContext'
+import React from 'react'
 
-export const Cart = () => {
-  const [cart, setCart] = useContext(CartContext)
-  return (
-    <div>
-      <span>items in cart: {cart.length}</span>
-      <br />
-
-      <span>total price: </span>
-    </div>
-  )
+export class Cart extends React.Component {
+  render() {
+    const cart = this.props.cart || {}
+    return <div />
+  }
 }
-//<UpdateCampus campusId={singleCampus.id} />
+
+const mapStateToProps = state => ({
+  cart: state.cart
+})
