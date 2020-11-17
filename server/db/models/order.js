@@ -3,11 +3,7 @@ const db = require('../db')
 
 const Order = db.define('order', {
   shippingAddress: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.STRING
   },
   orderTotal: {
     type: Sequelize.FLOAT,

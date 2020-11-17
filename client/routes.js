@@ -8,7 +8,8 @@ import {
   UserHome,
   AllUsers,
   AllHomes,
-  SingleHome
+  SingleHome,
+  Cart
 } from './components'
 import {me} from './store'
 
@@ -31,6 +32,7 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/users" component={AllUsers} />
           <Route path="/signup" component={Signup} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/homes" component={AllHomes} />
           <Route exact path="/homes/:homesId" component={SingleHome} />
           {isLoggedIn ? (

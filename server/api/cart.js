@@ -6,14 +6,18 @@ const router = require('express').Router()
 //Add to the cart, edit, remove, get route
 
 //Add
-router.post('/', async (req, res, next) => {
-  try {
-    const addItemToCart = await Order.create(req.body)
-    res.send(addItemToCart)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/', async (req, res, next) => {
+//   try {
+//     console.log('REQBODY', req.body)
+//     const addItemToCart = await Order_Home.create({
+//       orderId: req.body.orderId,
+//       homeId: req.body.home.id
+//     })
+//     res.send(addItemToCart)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 // GET
 router.get('/', async (req, res, next) => {
@@ -21,7 +25,7 @@ router.get('/', async (req, res, next) => {
     if (req.body.id) {
       const currentCart = await Order.findOrCreate({
         where: {
-          id: req.body.id,
+          userId: req.body.id,
           orderStatus: 'Pending'
         },
         include: [{model: Home}]
@@ -41,10 +45,16 @@ router.get('/', async (req, res, next) => {
 })
 
 //EDIT
-router.put('/:orderId', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const updateOrder = await Order.findByPk(req.params.orderId)
-    await updateOrder.update(req.body)
+    const updateOrder = await Order.findOrCreate({
+      where: {
+        userId: req.body.user,
+        orderStatus: 'Pending'
+      },
+      include: [{model: Home}]
+    })
+    await updateOrder.update({homes: [...homes, req.body.home]})
     res.send(updateOrder)
   } catch (error) {
     next(error)
@@ -55,7 +65,6 @@ router.put('/:orderId', async (req, res, next) => {
 
 router.put('/:orderId/:homeId', async (req, res, next) => {
   try {
-    let currentQty = await Order_Home
     const updateOrderQty = await Order_Home.findOrCreate({
       where: {
         orderId: req.params.orderId
