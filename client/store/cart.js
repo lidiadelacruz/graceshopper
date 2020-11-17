@@ -46,8 +46,11 @@ const addToQuantity = home => {
 export const fetchCart = () => {
   return async dispatch => {
     try {
+      console.log('before axios')
       const {data} = await axios.get('/api/cart')
+      console.log('DATA', data)
       dispatch(gotCart(data))
+      console.log('After dispatch')
     } catch (error) {
       console.log(error)
     }
@@ -59,8 +62,12 @@ export const fetchCart = () => {
 export const addNewHome = home => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/cart', home)
-      dispatch(addToCart(data))
+      if (home.user) {
+        const {data} = await axios.put('/api/cart', home)
+        dispatch(addToCart(data))
+      } else {
+        dispatch(addToCart(home.home))
+      }
     } catch (error) {
       console.log(error)
     }
@@ -87,8 +94,10 @@ export const increaseQty = home => {
 //cart view
 //add, remove, update
 
+const cart = []
+
 //conside state to be [] for length functionality - check if it is empty/number of items
-function cartReducer(state = {cart: []}, action) {
+function cartReducer(state = cart, action) {
   switch (action.type) {
     case GOT_CART:
       return action.cart
@@ -98,7 +107,7 @@ function cartReducer(state = {cart: []}, action) {
         price: action.home.price,
         status: action.home.status
       }
-      return {...state, cart: [...state.cart, newItem]}
+      return [...state, newItem]
     default:
       return state
   }
