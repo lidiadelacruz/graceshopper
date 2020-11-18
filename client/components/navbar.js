@@ -9,7 +9,7 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
     <div>
       <nav className="navbar">
         <div className="logo">
-          <Link to="/homes">
+          <Link to="/">
             <img
               src="img/nbh-logo.png"
               height="50"

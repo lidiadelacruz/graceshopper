@@ -11,7 +11,8 @@ import {
   SingleHome,
   Cart,
   Checkout,
-  Confirmation
+  Confirmation,
+  LandingPage
 } from './components'
 import {me} from './store'
 
