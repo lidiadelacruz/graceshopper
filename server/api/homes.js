@@ -44,6 +44,14 @@ router.post('/', adminsOnly, async (req, res, next) => {
   }
 })
 
-// PUT route?
+router.put('/:id', adminsOnly, async (req, res, next) => {
+  try {
+    const home = await Home.findByPk(req.params.id)
+    await home.update(req.body)
+    res.status(200).end()
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router

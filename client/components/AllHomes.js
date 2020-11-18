@@ -1,12 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchHomes} from '../store/allHomes'
+import {fetchHomes, deleteHomeThunk} from '../store/allHomes'
 import {Link} from 'react-router-dom'
 import AddHome from './AddHome'
 
 class AllHomes extends Component {
+  constructor() {
+    super()
+    this.removeHome = this.removeHome.bind(this)
+  }
   componentDidMount() {
     this.props.fetchHomes()
+  }
+
+  async removeHome(homeId) {
+    await this.props.deleteHome(homeId)
+    await this.props.fetchHomes()
   }
 
   render() {
@@ -17,7 +26,10 @@ class AllHomes extends Component {
         <br />
         {this.props.user.isAdmin ? (
           <div>
-            <AddHome />
+            <div className="home-form">
+              <h3>Add A Home</h3>
+              <AddHome />
+            </div>
             <ul className="all-homes">
               {homes.map(home => {
                 return (
@@ -32,7 +44,7 @@ class AllHomes extends Component {
                       <button
                         type="button"
                         className="secondary-button"
-                        onClick={this.removeHome}
+                        onClick={() => this.removeHome(home.id)}
                       >
                         Delete This Home
                       </button>
@@ -83,7 +95,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchHomes: () => dispatch(fetchHomes())
+    fetchHomes: () => dispatch(fetchHomes()),
+    deleteHome: homeId => dispatch(deleteHomeThunk(homeId))
   }
 }
 

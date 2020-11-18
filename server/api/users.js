@@ -55,10 +55,11 @@ router.delete('/:id', adminsOnly, async (req, res, next) => {
   }
 })
 
-router.put('/:id', adminOrByUserId, async (req, res, next) => {
+//updates a user to be an admin
+router.put('/:id/admin', adminOrByUserId, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
-    await user.update(req.body)
+    await user.update({isAdmin: !user.isAdmin})
     res.status(200).end()
   } catch (err) {
     next(err)

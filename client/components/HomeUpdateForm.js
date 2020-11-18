@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addHomeThunk} from '../store/allHomes'
+import {updateHomeThunk} from '../store/singleHome'
 
-class AddHome extends Component {
+class HomeUpdateForm extends Component {
   constructor() {
     super()
     this.state = {
@@ -32,7 +32,7 @@ class AddHome extends Component {
         status: this.state.status,
         inventory: this.state.inventory
       }
-      await this.props.sendHomeToPost(newHomeObj)
+      await this.props.updateHome(newHomeObj)
       this.setState({
         type: '',
         description: '',
@@ -87,9 +87,15 @@ class AddHome extends Component {
               </label>
               <input name="inventory" type="integer" />
             </div>
+            <div>
+              <label htmlFor="status">
+                <small>Home Status (Available/Sold)</small>
+              </label>
+              <input name="status" type="text" />
+            </div>
           </p>
           <div>
-            <button type="submit">Add Home</button>
+            <button type="submit">Update Home</button>
           </div>
         </form>
       </div>
@@ -99,8 +105,8 @@ class AddHome extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    sendHomeToPost: homeObj => dispatch(addHomeThunk(homeObj))
+    updateHome: homeObj => dispatch(updateHomeThunk(homeObj))
   }
 }
 
-export default connect(null, mapDispatch)(AddHome)
+export default connect(null, mapDispatch)(HomeUpdateForm)
