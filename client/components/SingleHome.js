@@ -46,14 +46,14 @@ class SingleHome extends React.Component {
           )}
         </div>
         <br />
-        {/* {this.props.user.isAdmin ? (
+        {this.props.user.isAdmin ? (
           <p className="home-form">
             <h3>Update This Home</h3>
-            <HomeUpdateForm />
+            <HomeUpdateForm homeId={home.id} />
           </p>
         ) : (
           <div />
-        )} */}
+        )}
       </div>
     )
   }
