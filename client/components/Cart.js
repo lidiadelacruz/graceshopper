@@ -25,7 +25,8 @@ export class Cart extends React.Component {
     const cart = this.props.cart || {}
     const homes = cart.homes || []
     return (
-      <div>
+      <div className="cart-page">
+        <h1>My Cart</h1>
         <ul className="cart">
           {homes.map(home => {
             return (
