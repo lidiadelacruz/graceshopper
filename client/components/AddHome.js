@@ -15,6 +15,7 @@ class AddHome extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleReset = this.handleReset.bind(this)
   }
 
   handleChange(event) {
@@ -33,17 +34,24 @@ class AddHome extends Component {
         inventory: this.state.inventory
       }
       await this.props.sendHomeToPost(newHomeObj)
-      this.setState({
-        type: '',
-        description: '',
-        price: 0,
-        imageUrl: '',
-        status: 'Available',
-        inventory: 0
-      })
+      this.handleReset()
     } catch (err) {
       console.error(err)
     }
+  }
+
+  handleReset = () => {
+    Array.from(document.querySelectorAll('input')).forEach(
+      input => (input.value = '')
+    )
+    this.setState({
+      type: '',
+      description: '',
+      price: 0,
+      imageUrl: '',
+      status: 'Available',
+      inventory: 0
+    })
   }
 
   render() {
