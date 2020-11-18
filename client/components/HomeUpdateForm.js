@@ -11,7 +11,7 @@ class HomeUpdateForm extends Component {
       price: 0,
       imageUrl: '',
       status: 'Available',
-      inventory: 0
+      inventory: 1
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,7 +39,7 @@ class HomeUpdateForm extends Component {
         price: 0,
         imageUrl: '',
         status: 'Available',
-        inventory: 0
+        inventory: 1
       })
     } catch (err) {
       console.error(err)
@@ -79,13 +79,13 @@ class HomeUpdateForm extends Component {
               <label htmlFor="price">
                 <small>Price</small>
               </label>
-              <input name="price" type="float" />
+              <input name="price" type="text" />
             </div>
             <div>
               <label htmlFor="inventory">
                 <small>Inventory</small>
               </label>
-              <input name="inventory" type="integer" />
+              <input name="inventory" type="text" />
             </div>
             <div>
               <label htmlFor="status">

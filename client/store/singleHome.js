@@ -28,7 +28,6 @@ export const fetchSingleHome = id => {
 export const updateHomeThunk = home => {
   return async dispatch => {
     try {
-      console.log('here', home)
       await Axios.put(`/api/homes/${home.id}`, home)
       dispatch(updateHome(home))
     } catch (err) {
