@@ -112,10 +112,15 @@ function cartReducer(state = cart, action) {
     case ADD_TO_CART:
       return action.cart
     case REMOVE_FROM_CART:
-      return {
+      const newState = {
         ...state,
-        homes: state.homes.filter(home => home.id !== action.homeId)
+        homes: state.homes.filter(home => home.id != action.homeId)
       }
+      newState.orderTotal = newState.homes.reduce(
+        (acc, home) => acc + home.price,
+        0
+      )
+      return newState
     default:
       return state
   }

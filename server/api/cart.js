@@ -1,35 +1,28 @@
-const {Order, Order_Home} = require('../db')
-const Home = require('../db/models/home')
-
+const {Order, Order_Home, Home} = require('../db')
 const router = require('express').Router()
-
-//Add to the cart, edit, remove, get route
-
-//Add
-// router.post('/', async (req, res, next) => {
-//   try {
-//     console.log('REQBODY', req.body)
-//     const addItemToCart = await Order_Home.create({
-//       orderId: req.body.orderId,
-//       homeId: req.body.home.id
-//     })
-//     res.send(addItemToCart)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 // GET
 router.get('/', async (req, res, next) => {
   try {
-    if (!req.user) return res.sendStatus(401)
-    const [currentCart] = await Order.findOrCreate({
-      where: {
-        userId: req.user.id,
-        orderStatus: 'Pending'
-      },
-      include: Home
-    })
+    console.log(req.ip)
+    let currentCart
+    if (req.user) {
+      ;[currentCart] = await Order.findOrCreate({
+        where: {
+          userId: req.user.id,
+          orderStatus: 'Pending'
+        },
+        include: Home
+      })
+    } else {
+      ;[currentCart] = await Order.findOrCreate({
+        where: {
+          ip: req.ip,
+          orderStatus: 'Pending'
+        },
+        include: Home
+      })
+    }
     res.send(currentCart)
   } catch (error) {
     next(error)
@@ -39,16 +32,26 @@ router.get('/', async (req, res, next) => {
 //EDIT
 router.put('/', async (req, res, next) => {
   try {
+    let updateOrder
     const home = await Home.findByPk(req.body.home.id)
     if (home.inventory < 1) return res.sendStatus(401)
-    const [updateOrder] = await Order.findOrCreate({
-      where: {
-        userId: req.body.user.id,
-        orderStatus: 'Pending'
-      },
-      include: Home
-    })
-    //const newOrderHome = await Order_Home.create({quantity:1})
+    if (req.user) {
+      ;[updateOrder] = await Order.findOrCreate({
+        where: {
+          userId: req.body.user.id,
+          orderStatus: 'Pending'
+        },
+        include: Home
+      })
+    } else {
+      ;[updateOrder] = await Order.findOrCreate({
+        where: {
+          ip: req.ip,
+          orderStatus: 'Pending'
+        },
+        include: Home
+      })
+    }
     await updateOrder.addHome(home, {through: {quantity: 1}})
     home.inventory--
     if (home.inventory < 1) home.status = 'Sold'
@@ -56,6 +59,8 @@ router.put('/', async (req, res, next) => {
     const newCart = await Order.findByPk(updateOrder.id, {
       include: Home
     })
+    newCart.orderTotal += home.price
+    await newCart.save()
     res.send(newCart)
   } catch (error) {
     next(error)
@@ -84,44 +89,29 @@ router.put('/:orderId/:homeId', async (req, res, next) => {
 //REMOVE
 router.delete('/:homeId', async (req, res, next) => {
   try {
+    let cart
     const home = await Home.findByPk(req.params.homeId)
-    const [cart] = await req.user.getOrders({
-      where: {
-        orderStatus: 'Pending'
-      }
-    })
+    if (req.user) {
+      ;[cart] = await req.user.getOrders({
+        where: {
+          orderStatus: 'Pending'
+        }
+      })
+    } else {
+      cart = await Order.findOne({
+        where: {
+          ip: req.ip,
+          orderStatus: 'Pending'
+        }
+      })
+    }
     await cart.removeHome(home)
+    cart.orderTotal -= home.price
+    await cart.save()
     res.sendStatus(200)
   } catch (error) {
     next(error)
   }
 })
-
-// router.delete('/:orderId/:homeId', async (req, res, next) => {
-//   try {
-//     await Order_Home.destroy({
-//       where: {
-//         orderId: req.params.orderId,
-//         homeId: req.params.homeId
-//       }
-//     })
-//     res.sendStatus(200)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// router.delete('/:orderId', async (req, res, next) => {
-//   try {
-//     await Order.destroy({
-//       where: {
-//         id: req.params.orderId
-//       }
-//     })
-//     res.sendStatus(200)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 module.exports = router

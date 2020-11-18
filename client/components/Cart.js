@@ -42,7 +42,7 @@ export class Cart extends React.Component {
             )
           })}
         </ul>
-        <h4>Cart Total: {}</h4>
+        <h4>Cart Total: ${cart.orderTotal}</h4>
       </div>
     )
   }
@@ -54,7 +54,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   getCart: () => dispatch(fetchCart()),
-  removeFromCart: home => dispatch(deleteItem(home))
+  removeFromCart: homeId => dispatch(deleteItem(homeId))
 })
 
 export default connect(mapStateToProps, mapDispatch)(Cart)

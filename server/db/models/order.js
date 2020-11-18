@@ -15,6 +15,9 @@ const Order = db.define('order', {
   orderStatus: {
     type: Sequelize.ENUM,
     values: ['Pending', 'Complete', 'Cancelled']
+  },
+  ip: {
+    type: Sequelize.STRING
   }
 })
 
