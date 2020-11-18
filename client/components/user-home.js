@@ -16,9 +16,16 @@ export const UserHome = props => {
       <h1>Welcome, {firstName}</h1>
       {isAdmin ? (
         <div>
-          <Link to="/users" component={AllUsers}>
-            View all Users
-          </Link>
+          <h2 className="admin-user-view">
+            <Link to="/users" component={AllUsers}>
+              View all Users
+            </Link>
+          </h2>
+          <h2 className="admin-user-view">
+            <Link to="/homes" component={AllHomes}>
+              Let's edit our inventory
+            </Link>
+          </h2>
         </div>
       ) : (
         <h1 id="one-click-home">
