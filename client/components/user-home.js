@@ -12,8 +12,8 @@ export const UserHome = props => {
   const {firstName, isAdmin} = props
 
   return (
-    <div>
-      <h3>Welcome, {firstName}</h3>
+    <div className="user-welcome">
+      <h1>Welcome, {firstName}</h1>
       {isAdmin ? (
         <div>
           <Link to="/users" component={AllUsers}>
@@ -21,11 +21,11 @@ export const UserHome = props => {
           </Link>
         </div>
       ) : (
-        <h3>
+        <h1 id="one-click-home">
           <Link to="/homes" component={AllHomes}>
             Your dream home is one click away!
           </Link>
-        </h3>
+        </h1>
       )}
     </div>
   )

@@ -7,10 +7,10 @@ import {connect} from 'react-redux'
 export const Confirmation = () => {
   return (
     <div className="confirmation">
-      <h3>
+      <h1>
         Thank you for your order! We've received it and will ship your new home
         in 5-7 days.
-      </h3>
+      </h1>
     </div>
   )
 }

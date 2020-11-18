@@ -11,7 +11,7 @@ class AllHomes extends Component {
   render() {
     const homes = this.props.homes || []
     return (
-      <div>
+      <div className="homes-page">
         <h1>All Homes Inventory</h1>
         <br />
         <ul className="all-homes">

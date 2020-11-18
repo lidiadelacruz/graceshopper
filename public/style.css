@@ -102,11 +102,18 @@ button a:hover {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 1em;
+  text-align: center;
 }
 
 img {
   border-radius: 8px;
 }
+
+li {
+  list-style: none;
+}
+
 .single-home {
   display: flex;
   padding: 1.5em;
@@ -152,7 +159,53 @@ img {
 }
 
 .confirmation {
-  width: 1000px;
-  padding: 50px;
-  margin: 20px;
+  padding: 5em;
+  margin: 2em;
+  justify-content: center;
+  text-align: center;
+  line-height: 250%;
+}
+
+.user-welcome {
+  padding: 2em;
+  justify-content: center;
+  text-align: center;
+}
+
+#one-click-home {
+  color: #fa8575;
+  padding: 0.5em;
+}
+
+.homes-page h1 {
+  padding-top: 1em;
+  justify-content: center;
+  text-align: center;
+}
+
+.checkout-page {
+  padding: 2em;
+  padding-top: 1em;
+}
+
+.checkout-page h3 {
+  padding-top: 1em;
+}
+
+.login {
+  padding: 2em;
+  text-align: center;
+}
+
+.login p {
+  padding: 0.25em;
+}
+
+.sign-up {
+  padding: 2em;
+  text-align: center;
+}
+
+.sign-up p {
+  padding: 0.25em;
 }

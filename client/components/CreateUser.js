@@ -50,7 +50,7 @@ class CreateUser extends Component {
     const {name, error} = this.props
 
     return (
-      <div>
+      <div className="sign-up">
         <form
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
