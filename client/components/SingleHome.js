@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleHome} from '../store/singleHome'
 import {addNewHome} from '../store/cart'
+import HomeUpdateForm from './HomeUpdateForm'
 
 class SingleHome extends React.Component {
   constructor() {
@@ -33,13 +34,26 @@ class SingleHome extends React.Component {
           <h1>{info}</h1>
           <p>{home.description}</p>
           {home.status !== 'Sold' ? (
-            <button onClick={() => this.addHomes(home)} id="add-cart">
+            <button
+              type="button"
+              onClick={() => this.addHomes(home)}
+              id="add-cart"
+            >
               Add to Cart
             </button>
           ) : (
             ''
           )}
         </div>
+        <br />
+        {/* {this.props.user.isAdmin ? (
+          <p className="home-form">
+            <h3>Update This Home</h3>
+            <HomeUpdateForm />
+          </p>
+        ) : (
+          <div />
+        )} */}
       </div>
     )
   }

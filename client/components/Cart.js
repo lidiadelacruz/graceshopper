@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, addNewHome, increaseQty, deleteItem} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 export class Cart extends React.Component {
   constructor() {
@@ -33,8 +34,12 @@ export class Cart extends React.Component {
               <ul key={home.id}>
                 <img src={home.imageUrl} width="300" height="300" />
                 <br />
-                <button id={home.id} onClick={this.removeHomeFromCart}>
-                  X
+                <button
+                  type="button"
+                  id={home.id}
+                  onClick={this.removeHomeFromCart}
+                >
+                  Remove From Cart
                 </button>
                 <li>Price:$ {home.price}</li>
                 <br />
@@ -44,6 +49,9 @@ export class Cart extends React.Component {
           })}
         </ul>
         <h4>Cart Total: ${cart.orderTotal}</h4>
+        <button type="button" className="secondary-button">
+          <Link to="./checkout">Checkout</Link>)
+        </button>
       </div>
     )
   }

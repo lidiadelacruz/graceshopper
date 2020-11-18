@@ -35,16 +35,23 @@ router.delete('/:homesId', adminsOnly, async (req, res, next) => {
   }
 })
 
-router.post('/:homesId', adminsOnly, async (req, res, next) => {
+router.post('/', adminsOnly, async (req, res, next) => {
   try {
-    const home = await Home.findByPk(req.params.homesId)
-    await homes.update(req.body)
-    res.send(home)
+    const home = await Home.create(req.body)
+    res.json(home)
   } catch (error) {
     next(error)
   }
 })
 
-// PUT route?
+router.put('/:id', adminsOnly, async (req, res, next) => {
+  try {
+    const home = await Home.findByPk(req.params.id)
+    await home.update(req.body)
+    res.status(200).end()
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router

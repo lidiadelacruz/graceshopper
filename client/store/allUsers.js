@@ -4,11 +4,13 @@ import axios from 'axios'
 const GET_USERS = 'GET_USERS'
 const POST_USER = 'POST_USER'
 const DELETE_USER = 'DELETE_USER'
+const TOGGLE_ADMIN = 'TOGGLE_ADMIN'
 
 // action creators
 const setUsers = users => ({type: GET_USERS, users})
 const gotUserFromServer = user => ({type: POST_USER, user})
 const deleteUser = userId => ({type: DELETE_USER, userId})
+const toggleAdmin = userId => ({type: TOGGLE_ADMIN, userId})
 
 // thunk creators
 export const fetchAllUsers = () => {
@@ -44,6 +46,17 @@ export const deleteUserThunk = id => {
   }
 }
 
+export const toggleAdminThunk = id => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/users/${id}/admin`)
+      dispatch(toggleAdmin(id))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 // initial state
 const initialState = []
 
@@ -56,6 +69,9 @@ export default function allUserReducer(state = initialState, action) {
       return [...state, action.user]
     case DELETE_USER:
       return state.filter(user => user.id !== action.userId)
+    case TOGGLE_ADMIN:
+      // This needs to return state with the updated Admin
+      return state
     default:
       return state
   }

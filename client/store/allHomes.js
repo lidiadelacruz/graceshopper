@@ -47,7 +47,7 @@ export const deleteHomeThunk = homeId => {
   return async dispatch => {
     try {
       await axios.delete(`/api/homes/${homeId}`)
-      dispatch(deletedHome(data))
+      dispatch(deletedHome(homeId))
     } catch (error) {
       console.error(error)
     }
