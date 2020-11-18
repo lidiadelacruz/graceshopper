@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 
 /**
  * COMPONENT
@@ -14,6 +14,8 @@ export const Confirmation = () => {
     </div>
   )
 }
+
+//Comments left here below and connect import at top of file, so that in future, more cart/user details can be added to this component.
 
 /**
  * CONTAINER

@@ -8,7 +8,6 @@ const adminsOnly = (req, res, next) => {
 }
 
 const adminOrByUserId = (req, res, next) => {
-  // This logic should be double checked.
   if (
     req.user &&
     (req.user.isAdmin ||
