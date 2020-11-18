@@ -150,3 +150,9 @@ img {
 .user-link {
   font-size: 14pt;
 }
+
+.confirmation {
+  width: 1000px;
+  padding: 50px;
+  margin: 20px;
+}

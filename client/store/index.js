@@ -7,13 +7,17 @@ import userReducer from './singleUser'
 import homesReducer from './allHomes'
 import homeReducer from './singleHome'
 import cartReducer from './cart'
+import orderReducer from './order'
+import paymentReducer from './paymentInfo'
 
 const reducer = combineReducers({
   allUsers: allUserReducer,
   allHomes: homesReducer,
   user: userReducer,
   home: homeReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  order: orderReducer,
+  payment: paymentReducer
 })
 
 const middleware = composeWithDevTools(

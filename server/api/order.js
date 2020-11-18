@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 //To get associations, you must import from:
 //this line will navigate us to '../db/models/index.js to get out models.
-const {Order} = require('../db/models')
+const {Order, Home} = require('../db/models')
 const {adminsOnly, adminOrByUserId} = require('./util')
 
 module.exports = router
@@ -55,15 +55,37 @@ router.post('/', adminsOnly, async (req, res, next) => {
   }
 })
 
-//route to update/edit a single order
+//route for Admin to update/edit a single order
 //mounted on /api/orders/:id
-
 router.put('/:id', adminsOnly, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id)
     if (order) {
       const updatedOrder = await order.update(req.body)
       //200 - means OK success
+      res.status(200).send(updatedOrder)
+    } else {
+      res.status(404).end()
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+// route for User to checkout
+// mounted on /api/orders
+router.put('/', adminOrByUserId, async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const order = await Order.findOrCreate({
+      where: {
+        userId: req.body.id,
+        orderStatus: 'Pending'
+      },
+      include: [{model: Home}]
+    })
+    if (order) {
+      const updatedOrder = await order.update({orderStatus: 'Complete'})
       res.status(200).send(updatedOrder)
     } else {
       res.status(404).end()
