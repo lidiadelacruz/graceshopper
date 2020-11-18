@@ -6,7 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const UPDATE_USER = 'UPDATE_USER'
-const REMOVE_USER = 'REMOVE_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE

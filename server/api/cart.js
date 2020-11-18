@@ -105,6 +105,7 @@ router.delete('/:homeId', async (req, res, next) => {
         }
       })
     }
+    await home.update({status: 'Available'})
     await cart.removeHome(home)
     cart.orderTotal -= home.price
     await cart.save()

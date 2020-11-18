@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {REMOVE_USER} from './singleUser'
 
 //Action Types
 
@@ -110,6 +111,8 @@ function cartReducer(state = cart, action) {
         0
       )
       return newState
+    case REMOVE_USER:
+      return cart
     default:
       return state
   }
