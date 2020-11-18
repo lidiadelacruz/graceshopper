@@ -7,11 +7,7 @@ const {adminsOnly, adminOrByUserId} = require('./util')
 
 module.exports = router
 
-//Purpose of these express api routes: to get database information about purchase orders in our e-commerce site.
-//This information may be viewed by a user to see their orders, as well as, an admin to see all the orders and make desired changes.
-//admin/user may need to see order id, shipping address, order total, order status, and userId associated with the order. We will want admins to be able to edit, add and view the orders.
-
-//Note: a user should only be allowed to see their order, otherwise, seems like we need to limit access
+//Note: a user should only be allowed to see their order, otherwise, we need to limit access
 
 //route to view all order information
 //mounted on /api/orders b/c of app.use in index.js in server.
@@ -44,8 +40,6 @@ router.get('/:id', adminOrByUserId, async (req, res, next) => {
 
 //route to add an order
 //mounted on /api/orders
-
-// do we want the logged-in user to be able to post an order? i.e. by clicking on checkout from the cart?
 router.post('/', adminsOnly, async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body)
@@ -88,8 +82,6 @@ router.put('/', adminOrByUserId, async (req, res, next) => {
         include: [{model: Home}]
       }
     )
-    // if (order) {
-    //   const updatedOrder = await Order.update({})
     res.status(200).send(updatedOrder)
   } catch (err) {
     next(err)
