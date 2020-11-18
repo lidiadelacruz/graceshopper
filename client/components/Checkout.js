@@ -60,13 +60,13 @@ class Checkout extends Component {
 
   render() {
     return (
-      <div>
+      <div className="checkout-page">
         <form
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
           name={name}
         >
-          <h5>Shipping Information</h5>
+          <h3>Shipping Information</h3>
           <p>
             <div>
               <label htmlFor="shippingAddress">
@@ -75,7 +75,7 @@ class Checkout extends Component {
               <input name="shippingAddress" type="text" />
             </div>
           </p>
-          <h5>Billing Information</h5>
+          <h3>Billing Information</h3>
           <p>
             <div>
               <label htmlFor="firstName">
