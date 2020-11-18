@@ -38,9 +38,9 @@ router.post('/', adminOrByUserId, async (req, res, next) => {
       cardExpirationDate: req.body.cardExpirationDate,
       cardCVV: req.body.cardCVV,
       billingAddress: req.body.billingAddress,
-      billingZipcode: req.body.billingZipcode,
+      zipCode: req.body.billingZipcode,
       // including users so the User_Payment through table updates
-      users: [...users, req.body.user]
+      users: [req.body.user]
     })
     res.send(newPaymentInfo)
   } catch (err) {

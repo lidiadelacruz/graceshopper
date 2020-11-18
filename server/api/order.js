@@ -76,20 +76,21 @@ router.put('/:id', adminsOnly, async (req, res, next) => {
 // mounted on /api/orders
 router.put('/', adminOrByUserId, async (req, res, next) => {
   try {
-    console.log(req.body)
-    const order = await Order.findOrCreate({
-      where: {
-        userId: req.body.id,
-        orderStatus: 'Pending'
+    const updatedOrder = await Order.update(
+      {
+        orderStatus: 'Complete'
       },
-      include: [{model: Home}]
-    })
-    if (order) {
-      const updatedOrder = await order.update({orderStatus: 'Complete'})
-      res.status(200).send(updatedOrder)
-    } else {
-      res.status(404).end()
-    }
+      {
+        where: {
+          userId: req.body.id,
+          orderStatus: 'Pending'
+        },
+        include: [{model: Home}]
+      }
+    )
+    // if (order) {
+    //   const updatedOrder = await Order.update({})
+    res.status(200).send(updatedOrder)
   } catch (err) {
     next(err)
   }
