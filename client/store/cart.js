@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {REMOVE_USER} from './singleUser'
 
 //action type
 //in relation to NavBar accessed. Click navbar - cart component (class component - save local state - once rendered, pull this cart, if no cart, create an empty cart) This is created in api/cart.js find or Create.
@@ -121,6 +122,8 @@ function cartReducer(state = cart, action) {
         0
       )
       return newState
+    case REMOVE_USER:
+      return cart
     default:
       return state
   }

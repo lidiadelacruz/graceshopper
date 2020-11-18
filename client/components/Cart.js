@@ -50,7 +50,7 @@ export class Cart extends React.Component {
         </ul>
         <h4>Cart Total: ${cart.orderTotal}</h4>
         <button type="button" className="secondary-button">
-          <Link to="./checkout">Checkout</Link>)
+          <Link to="./checkout">Checkout</Link>
         </button>
       </div>
     )
