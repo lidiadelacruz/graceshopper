@@ -30,7 +30,18 @@ router.get('/:id', adminOrByUserId, async (req, res, next) => {
 //allow admins or logged in user to add paymentInfo
 router.post('/', adminOrByUserId, async (req, res, next) => {
   try {
-    const newPaymentInfo = await PaymentInfo.create(req.body)
+    const newPaymentInfo = await PaymentInfo.create({
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      creditOrDebitCardNumber: req.body.creditOrDebitCardNumber,
+      cardExpirationDate: req.body.cardExpirationDate,
+      cardCVV: req.body.cardCVV,
+      billingAddress: req.body.billingAddress,
+      zipCode: req.body.billingZipcode,
+      // including users so the User_Payment through table updates
+      users: [req.body.user]
+    })
     res.send(newPaymentInfo)
   } catch (err) {
     next(err)

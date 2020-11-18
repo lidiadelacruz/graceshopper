@@ -9,10 +9,14 @@ const adminsOnly = (req, res, next) => {
 
 const adminOrByUserId = (req, res, next) => {
   // This logic should be double checked.
-  if (req.user && (req.user.isAdmin || req.params.id === req.user.id)) {
+  if (
+    req.user &&
+    (req.user.isAdmin ||
+      req.user.id === (req.params.id || req.body.id || req.body.user.id))
+  ) {
     next()
   } else {
-    const error = new Error('This page is only viewable by admin users.')
+    const error = new Error('This page is only viewable by approved users.')
     error.status = 401
     return next(error)
   }

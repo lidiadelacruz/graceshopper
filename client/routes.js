@@ -9,7 +9,9 @@ import {
   AllUsers,
   AllHomes,
   SingleHome,
-  Cart
+  Cart,
+  Checkout,
+  Confirmation
 } from './components'
 import {me} from './store'
 
@@ -29,6 +31,7 @@ class Routes extends Component {
         {/* <Route exact path="/login" component={Login} /> */}
         <Switch>
           {/* Routes placed here are available to all visitors */}
+          <Route exact path="/" component={AllHomes} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/users" component={AllUsers} />
           <Route path="/signup" component={Signup} />
@@ -39,6 +42,8 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/myaccount" component={UserHome} />
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/confirmation" component={Confirmation} />
             </Switch>
           ) : (
             <Route path="/myaccount" component={Login} />
