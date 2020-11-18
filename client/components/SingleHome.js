@@ -12,10 +12,10 @@ class SingleHome extends React.Component {
     const id = this.props.match.params.homesId
     this.props.fetchSingleHome(id)
   }
-  addHomes() {
+  addHomes(home) {
     let valueHome = {
       cart: this.props.cart,
-      home: this.props.home,
+      home: home,
       user: this.props.user
     }
     this.props.addHome(valueHome)
@@ -32,9 +32,13 @@ class SingleHome extends React.Component {
           <h1>{price}</h1>
           <h1>{info}</h1>
           <p>{home.description}</p>
-          <button onClick={this.addHomes} id="add-cart">
-            Add to Cart
-          </button>
+          {home.status !== 'Sold' ? (
+            <button onClick={() => this.addHomes(home)} id="add-cart">
+              Add to Cart
+            </button>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     )
@@ -45,7 +49,7 @@ const mapState = state => {
   return {
     home: state.home,
     cart: state.cart,
-    user: state.user.id
+    user: state.user
   }
 }
 

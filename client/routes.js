@@ -61,7 +61,7 @@ class Routes extends Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: state.user.id
+    isLoggedIn: state.user.id !== undefined
   }
 }
 

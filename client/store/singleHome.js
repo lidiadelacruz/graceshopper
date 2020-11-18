@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import {ADD_TO_CART} from './cart'
 
 const GET_SINGLE_HOME = 'GET_SINGLE_HOME'
 
@@ -24,6 +25,9 @@ export default function homeReducer(state = initialState, action) {
   switch (action.type) {
     case GET_SINGLE_HOME:
       return action.home
+    case ADD_TO_CART:
+      const myHome = action.cart.homes.find(home => home.id === state.id)
+      return myHome ? myHome : state
     default:
       return state
   }
