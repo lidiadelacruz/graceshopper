@@ -22,23 +22,15 @@ const router = require('express').Router()
 // GET
 router.get('/', async (req, res, next) => {
   try {
-    if (req.body.id) {
-      const currentCart = await Order.findOrCreate({
-        where: {
-          userId: req.body.id,
-          orderStatus: 'Pending'
-        },
-        include: [{model: Home}]
-      })
-      res.send(currentCart)
-    } //else {
-    //  const cart = await Order.findOrCreate({
-    //   where: {
-    //     sessionId: 1,
-    //     orderStatus: 'Pending'
-    //   }
-    //  })
-    // }
+    if (!req.user) return res.sendStatus(401)
+    const [currentCart] = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'Pending'
+      },
+      include: Home
+    })
+    res.send(currentCart)
   } catch (error) {
     next(error)
   }
@@ -47,15 +39,24 @@ router.get('/', async (req, res, next) => {
 //EDIT
 router.put('/', async (req, res, next) => {
   try {
-    const updateOrder = await Order.findOrCreate({
+    const home = await Home.findByPk(req.body.home.id)
+    if (home.inventory < 1) return res.sendStatus(401)
+    const [updateOrder] = await Order.findOrCreate({
       where: {
-        userId: req.body.user,
+        userId: req.body.user.id,
         orderStatus: 'Pending'
       },
-      include: [{model: Home}]
+      include: Home
     })
-    await updateOrder.update({homes: [...homes, req.body.home]})
-    res.send(updateOrder)
+    //const newOrderHome = await Order_Home.create({quantity:1})
+    await updateOrder.addHome(home, {through: {quantity: 1}})
+    home.inventory--
+    if (home.inventory < 1) home.status = 'Sold'
+    await home.save()
+    const newCart = await Order.findByPk(updateOrder.id, {
+      include: Home
+    })
+    res.send(newCart)
   } catch (error) {
     next(error)
   }
@@ -81,17 +82,46 @@ router.put('/:orderId/:homeId', async (req, res, next) => {
 })
 
 //REMOVE
-router.delete('/:orderId', async (req, res, next) => {
+router.delete('/:homeId', async (req, res, next) => {
   try {
-    await Order.destroy({
+    const home = await Home.findByPk(req.params.homeId)
+    const [cart] = await req.user.getOrders({
       where: {
-        id: req.params.orderId
+        orderStatus: 'Pending'
       }
     })
+    await cart.removeHome(home)
     res.sendStatus(200)
   } catch (error) {
     next(error)
   }
 })
+
+// router.delete('/:orderId/:homeId', async (req, res, next) => {
+//   try {
+//     await Order_Home.destroy({
+//       where: {
+//         orderId: req.params.orderId,
+//         homeId: req.params.homeId
+//       }
+//     })
+//     res.sendStatus(200)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+// router.delete('/:orderId', async (req, res, next) => {
+//   try {
+//     await Order.destroy({
+//       where: {
+//         id: req.params.orderId
+//       }
+//     })
+//     res.sendStatus(200)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 module.exports = router

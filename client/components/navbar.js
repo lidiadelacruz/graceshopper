@@ -11,7 +11,7 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
         <div className="logo">
           <Link to="/homes">
             <img
-              src="img/nbh-logo.png"
+              src="/img/nbh-logo.png"
               height="50"
               width="50"
               alt="Never Before Homes Logo"
@@ -27,7 +27,7 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
               <Link to="/myaccount">My Account</Link>
               <Link to="/cart">
                 <img
-                  src="img/cart-icon.png"
+                  src="/img/cart-icon.png"
                   height="30"
                   width="30"
                   alt="Cart Icon"
@@ -46,7 +46,7 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
               <Link to="/login">My Account</Link>
               <Link to="/cart">
                 <img
-                  src="img/cart-icon.png"
+                  src="/img/cart-icon.png"
                   height="30"
                   width="30"
                   alt="Cart Icon"
@@ -71,7 +71,7 @@ const Navbar = ({handleClick, isLoggedIn = false}) => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: state.user.id
+    isLoggedIn: state.user.id !== undefined
   }
 }
 

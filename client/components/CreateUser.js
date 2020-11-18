@@ -40,7 +40,7 @@ class CreateUser extends Component {
         password: ''
       })
       // redirect to My Account view
-      this.history.push(`/myaccount`)
+      // this.history.push(`/myaccount`)
     } catch (err) {
       console.error(err)
     }

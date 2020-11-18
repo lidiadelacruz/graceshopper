@@ -6,7 +6,7 @@ const GOT_CART = 'GOT_CART'
 
 //getting a new home and adding it to our cart
 //from our single home component, we will be adding the the cart a home
-const ADD_TO_CART = 'ADD_TO_CART'
+export const ADD_TO_CART = 'ADD_TO_CART'
 
 //from the cart component these will happen
 //increasing the quantity (user can have more than one home)
@@ -32,25 +32,25 @@ const gotCart = cart => {
 }
 
 //quantity, price - we will need more than just the homeId
-const addToCart = home => {
-  return {type: ADD_TO_CART, home}
+const addToCart = cart => {
+  return {type: ADD_TO_CART, cart}
 }
 
 const addToQuantity = home => {
   return {type: ADD_QUANTITY_TO_CART, home}
 }
 
+const deleteItemFromCart = homeId => {
+  return {type: REMOVE_FROM_CART, homeId}
+}
 //thunk creator
 
 //fetchCart
 export const fetchCart = () => {
   return async dispatch => {
     try {
-      console.log('before axios')
       const {data} = await axios.get('/api/cart')
-      console.log('DATA', data)
       dispatch(gotCart(data))
-      console.log('After dispatch')
     } catch (error) {
       console.log(error)
     }
@@ -62,12 +62,8 @@ export const fetchCart = () => {
 export const addNewHome = home => {
   return async dispatch => {
     try {
-      if (home.user) {
-        const {data} = await axios.put('/api/cart', home)
-        dispatch(addToCart(data))
-      } else {
-        dispatch(addToCart(home.home))
-      }
+      const {data} = await axios.put('/api/cart', home)
+      dispatch(addToCart(data))
     } catch (error) {
       console.log(error)
     }
@@ -88,13 +84,25 @@ export const increaseQty = home => {
     }
   }
 }
+
+export const deleteItem = homeId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/cart/${homeId}`)
+      dispatch(deleteItemFromCart(homeId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //Redux action type/creator for retrieving the current cart
 
 //checkout button
 //cart view
 //add, remove, update
 
-const cart = []
+const cart = {}
 
 //conside state to be [] for length functionality - check if it is empty/number of items
 function cartReducer(state = cart, action) {
@@ -102,12 +110,12 @@ function cartReducer(state = cart, action) {
     case GOT_CART:
       return action.cart
     case ADD_TO_CART:
-      const newItem = {
-        id: action.home.homeId,
-        price: action.home.price,
-        status: action.home.status
+      return action.cart
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        homes: state.homes.filter(home => home.id !== action.homeId)
       }
-      return [...state, newItem]
     default:
       return state
   }
