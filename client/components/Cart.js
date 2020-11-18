@@ -33,8 +33,12 @@ export class Cart extends React.Component {
               <ul key={home.id}>
                 <img src={home.imageUrl} width="300" height="300" />
                 <br />
-                <button id={home.id} onClick={this.removeHomeFromCart}>
-                  X
+                <button
+                  type="button"
+                  id={home.id}
+                  onClick={this.removeHomeFromCart}
+                >
+                  Remove From Cart
                 </button>
                 <li>Price:$ {home.price}</li>
                 <br />
