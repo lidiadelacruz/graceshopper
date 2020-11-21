@@ -75,7 +75,8 @@ async function seed() {
         'Completely remodeled century old schoolhouse, formerly Hanoverton High School. It is currently used as a rental facility. but can easily be constructed to accommodate an extraordinary home. Oversize, custom built barn doors can also separate the two rooms to accommodate smaller rooms. There is a full kitchen complete with appliances. All new electric on the main floor. A 4 phase gas furnace/ AC unit. Exposed brick walls and beams that take you back to yesteryear. Two custom fireplaces. Endless potential for a truly unique home. Construction upstairs has been started, just waiting for your ideas and finishing touches! The full basement also has potential to be finished- new block walls.',
       type: 'Old House',
       price: faker.commerce.price(),
-      imageUrl: 'public/img/ecofriendly4.png',
+      imageUrl:
+        'https://images.unsplash.com/photo-1541274387095-12117e6099dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80',
       status: 'Available',
       inventory: 1
     }),
