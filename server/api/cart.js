@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
     } else {
       ;[currentCart] = await Order.findOrCreate({
         where: {
-          ip: req.ip,
+          ip: req.sessionID,
           orderStatus: 'Pending'
         },
         include: Home
@@ -46,7 +46,7 @@ router.put('/', async (req, res, next) => {
     } else {
       ;[updateOrder] = await Order.findOrCreate({
         where: {
-          ip: req.ip,
+          ip: req.sessionID,
           orderStatus: 'Pending'
         },
         include: Home
@@ -100,7 +100,7 @@ router.delete('/:homeId', async (req, res, next) => {
     } else {
       cart = await Order.findOne({
         where: {
-          ip: req.ip,
+          ip: req.sessionID,
           orderStatus: 'Pending'
         }
       })
